@@ -1,9 +1,12 @@
 const express = require('express');
 const path = require('path');
 const logger = require('morgan');
+const { MongoDB } = require('./components/database');
 const errHandlers = require('./middlewares/errorHandlers');
 
 const app = express();
+const mongo = new MongoDB({ name: 'se_debugDb' });
+mongo.connect();
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
