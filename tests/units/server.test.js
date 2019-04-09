@@ -1,18 +1,14 @@
 const {
-  describe, it, before, after,
+  describe, it,
 } = require('mocha');
 const request = require('request');
 const { expect } = require('chai');
-const { fixtures, config } = require('../context');
+const { config } = require('../context');
 
 // Initialize test variables
 const rootUrl = `http://${config.serverHost}:${config.serverPort}`;
 
 describe('Basic server responses', () => {
-  before(() => {
-    fixtures.server.connect(config.serverPort);
-  });
-
   it('#index: should return 200', (done) => {
     request.get(`${rootUrl}/`, (err, res) => {
       if (err) console.log(err);
@@ -27,9 +23,5 @@ describe('Basic server responses', () => {
       expect(res.statusCode).to.equal(404);
       done();
     });
-  });
-
-  after(() => {
-    fixtures.server.close();
   });
 });
