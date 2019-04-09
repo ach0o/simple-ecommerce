@@ -1,13 +1,11 @@
 const express = require('express');
 const path = require('path');
 const logger = require('morgan');
-const { MongoDB } = require('./components/database');
-const errHandlers = require('./middlewares/errorHandlers');
-
-const { productRouter } = require('./components/products');
+const { errorHandlers } = require('./middlewares');
+const { routers, databases } = require('./components');
 
 const app = express();
-const mongo = new MongoDB({ name: 'se_debugDb' });
+const mongo = new databases.MongoDB({ name: 'se_debugDb' });
 mongo.connect();
 
 app.set('views', path.join(__dirname, 'views'));
@@ -18,14 +16,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/products', productRouter);
+app.use('/products', routers.products);
 app.get('/', (req, res) => {
   res.render('index');
 });
 
-
 // handling errors
-app.use(errHandlers.NotFoundHandler);
-app.use(errHandlers.ErrorHandler);
+app.use(errorHandlers.NotFoundHandler);
+app.use(errorHandlers.ErrorHandler);
 
 module.exports = app;

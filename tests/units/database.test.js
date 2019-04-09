@@ -1,11 +1,11 @@
 const { describe, it } = require('mocha');
 const should = require('chai').should();
-const { MongoDB } = require('../../components/database');
+const { databases } = require('../../components');
 
 
 describe('Database connection', () => {
   it('should exist', () => {
-    const mongo = new MongoDB();
+    const mongo = new databases.MongoDB();
     const conn = mongo.connect();
     should.exist(conn);
     // TODO: Catch failed to connect to server: MongoNetworkError

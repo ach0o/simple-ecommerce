@@ -1,5 +1,3 @@
 const router = require('./apis');
 
-module.exports = {
-  productRouter: router,
-};
+module.exports = router;
