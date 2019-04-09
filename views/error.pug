@@ -1,3 +1,8 @@
-h1 Oops! We've got an error..
-h2=`${err.status} ${err.message}`
-p=err.stack
+extends layout
+
+block title
+  title Error Page
+block content
+  h1 Oops! We've got an error..
+  h2=`${err.status} ${err.message}`
+  p=err.stack
