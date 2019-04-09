@@ -1,24 +1,22 @@
-/* eslint-disable global-require */
-/* eslint-disable no-undef */
+const {
+  describe, it, before, after,
+} = require('mocha');
 const request = require('request');
-const http = require('http');
 const { expect } = require('chai');
-const app = require('../../server');
+const { fixtures, config } = require('../context');
 
 // Initialize test variables
-let server;
-const port = 9090;
-const rootUrl = `http://localhost:${port}`;
-
+const rootUrl = `http://${config.serverHost}:${config.serverPort}`;
 
 describe('Basic server responses', () => {
   before(() => {
-    server = http.createServer(app);
-    server.listen(port);
+    fixtures.server.connect(config.serverPort);
   });
 
   it('#index: should return 200', (done) => {
     request.get(`${rootUrl}/`, (err, res) => {
+      if (err) console.log(err);
+
       expect(res.statusCode).to.equal(200);
       done();
     });
@@ -32,6 +30,6 @@ describe('Basic server responses', () => {
   });
 
   after(() => {
-    server.close();
+    fixtures.server.close();
   });
 });

@@ -14,7 +14,7 @@ class MongoDB {
     mongoose.connect(`mongodb://${this.host}:${this.port}/${this.name}`, { useNewUrlParser: true });
     this.db = mongoose.connection;
     this.db.on('error', err => console.log(`FAIL: connection error: ${err}`));
-    this.db.once('open', () => console.log('SUCCESS: DB connected!'));
+    this.db.once('open', () => console.log(`SUCCESS: DB connected to ! ${this.db.client.s.url}`));
     return this.db;
   }
 }

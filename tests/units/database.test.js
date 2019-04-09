@@ -1,4 +1,4 @@
-/* eslint-disable no-undef */
+const { describe, it } = require('mocha');
 const should = require('chai').should();
 const { MongoDB } = require('../../components/database');
 

@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node",
     "dev": "nodemon",
-    "test": "mocha ./tests/*"
+    "test": "mocha ./tests/* --timeout 5000 --exit"
   },
   "author": "achooan",
   "license": "ISC",
