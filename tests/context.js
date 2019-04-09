@@ -16,10 +16,7 @@ after(() => {
   server.disconnect();
 });
 
-
 module.exports = {
-  fixtures: {
-    server,
-  },
+  fixtures: { server },
   config: testConfig,
 };

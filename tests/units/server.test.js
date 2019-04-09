@@ -3,23 +3,21 @@ const {
 } = require('mocha');
 const request = require('request');
 const { expect } = require('chai');
+const should = require('chai').should();
 const { config } = require('../context');
 
-// Initialize test variables
-const rootUrl = `http://${config.serverHost}:${config.serverPort}`;
-
 describe('Basic server responses', () => {
-  it('#index: should return 200', (done) => {
-    request.get(`${rootUrl}/`, (err, res) => {
-      if (err) console.log(err);
-
+  it('/: should return 200', (done) => {
+    request.get(`${config.serverUrl}/`, (err, res) => {
+      should.not.exist(err);
       expect(res.statusCode).to.equal(200);
       done();
     });
   });
 
-  it('#error: should return 404', (done) => {
-    request.get(`${rootUrl}/pagethatdoesntexist`, (err, res) => {
+  it('/pagenotfound: should return 404', (done) => {
+    request.get(`${config.serverUrl}/pagenotfound`, (err, res) => {
+      should.not.exist(err);
       expect(res.statusCode).to.equal(404);
       done();
     });
