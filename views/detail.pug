@@ -1,0 +1,42 @@
+extends layout
+
+mixin productItem(product)
+  .original-image
+    a(href=`${currentUrlPath}/${product.uid}`)
+      img(src=`/images/${product.images[0] || 'sorry.png'}`, alt=`image of ${product.name}`)
+  .description
+    h3.name=product.name
+    table
+      tr
+        th Price
+        td.price $#{product.price}
+      tr
+        th DC Price
+        td.dcPrice $#{product.discountPrice}
+      tr
+        th Description
+        td.detail=product.description
+      tr
+        th Tags
+        td=product.tags
+      tr
+        th Options
+        td
+          select.options(name="options")
+            option default
+      tr
+        th Quantity
+        td
+          input.quantity(type="number", name="quantity", value="1", max=10, required) 
+  .product-button
+    button.order-button Order Now
+    button.add-cart-button Add To Cart
+
+block title
+  title=title
+block content
+  .product-detail.center
+    if product
+      +productItem(product)
+    else
+      img(src=`/images/sorry.png`, alt=`product doesn't exist.`)

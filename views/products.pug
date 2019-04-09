@@ -1,0 +1,27 @@
+extends layout
+
+mixin productItem(product)
+  .box.col-4
+    .thumbnail
+      a(href=`${currentUrlPath}/${product.uid}`)
+        img(src=`/images/${product.images[0] || 'sorry.png'}`, alt=`image of ${product.name}`)
+    .description
+      strong.name=product.name
+      ul
+        li
+          span.price $#{product.price}
+          span.dcPrice $#{product.discountPrice}
+        li.detail=product.description
+    .icon
+      span tags# #{product.tags}
+
+mixin displayProducts(products)
+  each product in products
+    +productItem(product)
+
+block title
+  title=title
+block content
+  h1 
+  .product-list.center
+    +displayProducts(products)

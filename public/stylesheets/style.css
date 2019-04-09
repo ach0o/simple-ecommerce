@@ -63,3 +63,89 @@ body {
   color: #818181;
   display: block;
 }
+
+
+/* ---------------------------------------------------- */
+/* PRODUCT LIST */
+/* ---------------------------------------------------- */
+.product-list {
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+
+.box {
+  float: left;
+}
+
+.description ul{
+  list-style: none;
+  padding: 0;
+}
+.description .detail {
+  text-align: start;
+  padding-top: 5px;
+}
+
+span.price {
+  text-decoration-line: line-through;
+  padding-right: 10px;
+}
+
+span.dcPrice {
+  font-size: 110%;
+  font-weight: bold;
+}
+
+.thumbnail a img {
+  max-width: 250px;
+  max-height: 200px;
+}
+
+/* ---------------------------------------------------- */
+/* PRODUCT DETAIL */
+/* ---------------------------------------------------- */
+.original-image {
+  margin-right: 10px;
+}
+.original-image a img{
+  max-width: 400px;
+  max-height: 400px;
+}
+.product-detail .description {
+  text-align: left;
+}
+.product-detail .options, 
+.product-detail .quantity {
+  width: 50%;
+  font-size: 100%;
+}
+
+.product-detail table td,
+.product-detail table th {
+  padding-top: 25px;
+  padding-right: 10px;
+  vertical-align: top;
+}
+
+.product-button {
+  display: flex;
+  margin: 30px 0px;
+}
+
+.product-button .order-button {
+  width: 68%;
+  height: 80px;
+  background-color: gold;
+  color: black;
+  font-size: 150%;
+  font-weight: bold;
+  margin-right: 3px;
+}
+.product-button .add-cart-button {
+  width: 28%;
+  height: 80px;
+  background-color: grey;
+  color: #333;
+  font-size: 110%;
+  font-weight: bold;
+}
