@@ -28,7 +28,7 @@ function renderHelperMiddleware(req, res, next) {
 }
 
 function parseCartItems(req, res, next) {
-  res.locals.toRender.cartTotal = !req.session.carts ? 0 : req.session.carts.total;
+  res.locals.toRender.cartTotal = !req.session.carts ? 0 : req.session.carts.length;
   next();
 }
 
@@ -82,8 +82,8 @@ router.get('/categories/:categoryUri', (req, res, next) => {
 /**
  * Get a product list under any categories
  */
-router.get('/categories/all/:productId', (req, res, next) => {
-  const options = { uid: req.params.productId };
+router.get('/categories/all/:productUid', (req, res, next) => {
+  const options = { uid: req.params.productUid };
 
   Product.getOne(options)
     .then((product) => {
@@ -98,16 +98,16 @@ router.get('/categories/all/:productId', (req, res, next) => {
 /**
  * Get a product detail
  */
-router.get('/categories/:categoryUri/:productId', (req, res, next) => {
+router.get('/categories/:categoryUri/:productUid', (req, res, next) => {
   // eslint-disable-next-line no-restricted-globals
-  if (isNaN(req.params.productId)) next(new Error('Invalid parameter type'));
+  if (isNaN(req.params.productUid)) next(new Error('Invalid parameter type'));
 
   const options = { uri: req.params.categoryUri };
 
   // option for populate the document
   const popOptions = {
     product: {
-      match: { uid: req.params.productId },
+      match: { uid: req.params.productUid },
     },
   };
 

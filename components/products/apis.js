@@ -31,10 +31,10 @@ router.get('/', (req, res, next) => {
 /**
  * Get product detail page
  */
-router.get('/:productId', (req, res, next) => {
+router.get('/:productUid', (req, res, next) => {
   res.locals.toRender.title = 'Product Detail';
   const options = {
-    uid: req.params.productId,
+    uid: req.params.productUid,
   };
 
   // eslint-disable-next-line no-restricted-globals
