@@ -22,15 +22,17 @@ mixin productItem(product)
       tr
         th Options
         td
-          select.options(name="options")
-            option default
+          select.options(form="product-form", name="options")
+            each qty, option in product.optionQty
+                option(value=option) #{option}: #{qty} left
       tr
         th Quantity
         td
-          input.quantity(type="number", name="quantity", value="1", max=10, required) 
+          input.quantity(type="number", form="product-form", name="quantity", value="1", max=10, required) 
   .product-button
-    button.order-button Order Now
-    button.add-cart-button Add To Cart
+    form(action=`/orders/${product.uid}`, method="post").product-form#product-form
+    button.order-button(type="submit", form="product-form") Order Now
+    button.add-cart-button(type="submit", form="product-form" formaction=`/carts/${product.uid}`) Add To Cart
 
 block title
   title=title
