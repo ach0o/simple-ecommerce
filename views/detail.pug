@@ -1,9 +1,11 @@
 extends layout
 
+//- 
+//- Product Detail Mixin
+//- 
 mixin productItem(product)
   .original-image
-    a(href=`${currentUrlPath}/${product.uid}`)
-      img(src=`/images/${product.images[0] || 'sorry.png'}`, alt=`image of ${product.name}`)
+    img(src=`/images/${product.images[0] || 'sorry.png'}`, alt=`image of ${product.name}`)
   .description
     h3.name=product.name
     table
@@ -22,7 +24,7 @@ mixin productItem(product)
       tr
         th Options
         td
-          select.options(form="product-form", name="options")
+          select.options(form="product-form", name="option")
             each qty, option in product.optionQty
                 option(value=option) #{option}: #{qty} left
       tr
@@ -34,6 +36,11 @@ mixin productItem(product)
     button.order-button(type="submit", form="product-form") Order Now
     button.add-cart-button(type="submit", form="product-form" formaction=`/carts/${product.uid}`) Add To Cart
 
+//- 
+//- View blocks
+//- 
+block navigation
+  a Cart: #{cartTotal}
 block content
   h1=title
   .product-detail.center

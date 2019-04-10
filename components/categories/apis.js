@@ -27,7 +27,13 @@ function renderHelperMiddleware(req, res, next) {
     .catch(err => next(err));
 }
 
+function parseCartItems(req, res, next) {
+  res.locals.toRender.cartTotal = !req.session.carts ? 0 : req.session.carts.total;
+  next();
+}
+
 router.use(renderHelperMiddleware);
+router.use(parseCartItems);
 
 router.get('/', (req, res, next) => {
   Product.getAll()

@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const logger = require('morgan');
+const session = require('express-session');
 const { errorHandlers } = require('./middlewares');
 const { routers, databases } = require('./components');
 
@@ -14,9 +15,17 @@ app.set('view engine', 'pug');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use(
+  session({
+    name: 'idssn',
+    secret: 'some secret words#$%',
+    resave: false,
+    saveUninitialized: false,
+  }),
+);
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/products', routers.products);
+app.use('/carts', routers.carts);
 app.use('/', routers.categories);
 
 // handling errors

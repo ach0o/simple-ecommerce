@@ -4,7 +4,7 @@
   "description": "A simple ecommerce site",
   "main": "index.js",
   "scripts": {
-    "start": "node",
+    "start": "node index",
     "dev": "nodemon",
     "test": "mocha ./tests/* --timeout 5000 --exit"
   },
@@ -13,6 +13,7 @@
   "dependencies": {
     "debug": "^4.1.1",
     "express": "^4.16.4",
+    "express-session": "^1.15.6",
     "http-errors": "^1.7.2",
     "mongoose": "^5.4.22",
     "morgan": "^1.9.1",

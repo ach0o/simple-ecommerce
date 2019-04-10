@@ -45,6 +45,7 @@ mixin displayCategories(categories)
 //- View blocks
 //- 
 block navigation
+  a Cart: #{cartTotal}
   +displayCategories(categories)
 block content
   h1=title
