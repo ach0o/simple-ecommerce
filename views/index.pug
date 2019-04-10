@@ -1,6 +1,52 @@
 extends layout
 
-block title
-  title Index Page
+//- 
+//- Product Mixins
+//- 
+mixin productItem(product)
+  //- Set tags for single product
+  .box.col-4
+    .thumbnail
+      a(href=`${currentUrlPath}/${product.uid}`)
+        img(src=`/images/${product.images[0] || 'sorry.png'}`, alt=`image of ${product.name}`)
+    .description
+      strong.name=product.name
+      ul
+        li
+          span.price $#{product.price}
+          span.dcPrice $#{product.discountPrice}
+        li.detail=product.description
+    .icon
+      span tags# #{product.tags}
+
+mixin displayProducts(products)
+  //- Create a list of products 
+  each product in products
+    +productItem(product)
+
+//- 
+//- Category Mixins
+//- 
+mixin categoryItem(category)
+  //- Set tags for single category
+  a(href=`/categories/${category.uri}`)=category.name
+  .child-category(style='padding-left:20px;')
+    if category.childCategories
+      each child in category.childCategories
+        +categoryItem(child)
+
+mixin displayCategories(categories)
+  //- Create a list of categories
+  each category in categories
+    if category.isParent
+      +categoryItem(category)
+
+//- 
+//- View blocks
+//- 
+block navigation
+  +displayCategories(categories)
 block content
-  h1 Hello World!
+  h1=title
+  .product-list.center
+    +displayProducts(products)

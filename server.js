@@ -17,10 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/products', routers.products);
-app.use('/categories', routers.categories);
-app.get('/', (req, res) => {
-  res.render('index');
-});
+app.use('/', routers.categories);
 
 // handling errors
 app.use(errorHandlers.NotFoundHandler);

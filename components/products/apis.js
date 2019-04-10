@@ -22,7 +22,7 @@ router.use(renderHelperMiddleware);
 router.get('/', (req, res, next) => {
   Product.getAll()
     .then(products => res.render(
-      'products',
+      'index',
       { products, ...res.locals.toRender },
     ))
     .catch(err => next(err));

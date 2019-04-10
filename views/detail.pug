@@ -34,9 +34,8 @@ mixin productItem(product)
     button.order-button(type="submit", form="product-form") Order Now
     button.add-cart-button(type="submit", form="product-form" formaction=`/carts/${product.uid}`) Add To Cart
 
-block title
-  title=title
 block content
+  h1=title
   .product-detail.center
     if product
       +productItem(product)

@@ -1,25 +1,50 @@
 const { Router } = require('express');
 const Category = require('./category');
+const Product = require('../products/product');
 
 /**
- * Base Path: /categories
+ * Base Path: /
  */
 const router = Router();
 
 function renderHelperMiddleware(req, res, next) {
-  res.locals.toRender = {
-    title: 'Categories',
-    currentUrlPath: req.originalUrl,
+  const options = { isEnabled: true };
+  const popOptions = {
+    children: {
+      where: { isEnabled: true },
+      select: 'name uri',
+    },
   };
-  next();
+  Category.getAll(options, popOptions)
+    .select('name uri childCategories isParent')
+    .then((categories) => {
+      res.locals.toRender = {
+        currentUrlPath: req.originalUrl,
+        categories,
+      };
+      next();
+    })
+    .catch(err => next(err));
 }
 
 router.use(renderHelperMiddleware);
 
+router.get('/', (req, res, next) => {
+  Product.getAll()
+    .sort('-lastWarehoused')
+    .exec((err, products) => {
+      if (err) next(err);
+      res.locals.toRender.title = 'New Arrivals';
+      res.locals.toRender.products = products;
+      res.locals.toRender.currentUrlPath += 'categories/all';
+      res.render('index', { ...res.locals.toRender });
+    });
+});
+
 /**
  * Get a list of categories
  */
-router.get('/', (req, res, next) => {
+router.get('/categories', (req, res, next) => {
   const options = {
     isEnabled: true,
     isParent: true,
@@ -36,26 +61,38 @@ router.get('/', (req, res, next) => {
 /**
  * Get a product list under the category
  */
-router.get('/:categoryUri', (req, res, next) => {
-  res.locals.toRender.title = 'Product Detail';
-
+router.get('/categories/:categoryUri', (req, res, next) => {
   const options = { uri: req.params.categoryUri };
 
   Category.getOne(options)
     .then((category) => {
       res.locals.toRender.title = category.name;
-      res.render(
-        'products',
-        { products: category.products, ...res.locals.toRender },
-      );
+      res.locals.toRender.products = category.products;
+      res.render('index', { ...res.locals.toRender });
     })
     .catch(err => next(err));
 });
 
 /**
+ * Get a product list under any categories
+ */
+router.get('/categories/all/:productId', (req, res, next) => {
+  const options = { uid: req.params.productId };
+
+  Product.getOne(options)
+    .then((product) => {
+      res.locals.toRender.title = product.name;
+      res.locals.toRender.product = product;
+      res.render('detail', { ...res.locals.toRender });
+    })
+    .catch(err => next(err));
+});
+
+
+/**
  * Get a product detail
  */
-router.get('/:categoryUri/:productId', (req, res, next) => {
+router.get('/categories/:categoryUri/:productId', (req, res, next) => {
   // eslint-disable-next-line no-restricted-globals
   if (isNaN(req.params.productId)) next(new Error('Invalid parameter type'));
 

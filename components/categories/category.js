@@ -9,7 +9,6 @@ class Category {
       ]);
   }
 
-
   static getOne(options = {}, popOptions = {}) {
     return CategoryModel.findOne(options)
       .populate([
