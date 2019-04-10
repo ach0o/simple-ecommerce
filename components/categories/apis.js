@@ -56,6 +56,7 @@ router.get('/:categoryUri', (req, res, next) => {
  * Get a product detail
  */
 router.get('/:categoryUri/:productId', (req, res, next) => {
+  // eslint-disable-next-line no-restricted-globals
   if (isNaN(req.params.productId)) next(new Error('Invalid parameter type'));
 
   const options = { uri: req.params.categoryUri };

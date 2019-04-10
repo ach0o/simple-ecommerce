@@ -1,6 +1,6 @@
 const products = require('./products');
 const categories = require('./categories');
-const databases = require('./database');
+const databases = require('./databases');
 // require('./tempAddData');
 
 module.exports = {
