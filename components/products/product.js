@@ -6,9 +6,7 @@ class Product {
   }
 
   static getOne(options = {}) {
-    return ProductModel.findOne(options)
-      .then(product => product)
-      .catch((err) => { throw err; });
+    return ProductModel.findOne(options);
   }
 }
 
