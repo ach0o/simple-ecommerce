@@ -5,7 +5,7 @@ const { errorHandlers } = require('./middlewares');
 const { routers, databases } = require('./components');
 
 const app = express();
-const mongo = new databases.MongoDB({ name: 'se_debugDb' });
+const mongo = new databases.MongoDB();
 mongo.connect();
 
 app.set('views', path.join(__dirname, 'views'));
@@ -17,6 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/products', routers.products);
+app.use('/categories', routers.categories);
 app.get('/', (req, res) => {
   res.render('index');
 });

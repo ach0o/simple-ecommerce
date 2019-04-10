@@ -1,0 +1,18 @@
+extends layout
+
+mixin categoryItem(category)
+  a(href=`${currentUrlPath}/${category.uri}`)=category.name
+  .child-categories(style='padding-left:40px;')
+    each child in category.childCategories
+      +categoryItem(child)
+
+mixin displayCategories(categories)
+  each category in categories
+    .col-3
+      +categoryItem(category)
+
+block title
+  title=title
+
+block content
+  +displayCategories(categories)
