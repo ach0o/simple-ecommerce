@@ -26,6 +26,7 @@ app.use(
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/products', routers.products);
 app.use('/carts', routers.carts);
+app.use('/auths', routers.auths);
 app.use('/', routers.categories);
 
 // handling errors
