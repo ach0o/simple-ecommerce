@@ -21,6 +21,7 @@ function renderHelperMiddleware(req, res, next) {
       res.locals.toRender = {
         currentUrlPath: req.originalUrl,
         categories,
+        userId: req.session.userId || 'Guest',
       };
       next();
     })

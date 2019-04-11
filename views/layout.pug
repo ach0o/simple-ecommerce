@@ -12,6 +12,14 @@ html(lang="en")
       .row
         .col-2.col-3-sm
           .sidenav
+            a(href="/") Home
+            a=userId
+            if userId === 'Guest'
+              a(href="/auths/login") Login
+            else
+              a(href="/auths/logout") Logout
+            a(href='/carts' alt='carts') Cart: #{cartTotal}
+            br
             block navigation
         .col-10.col-9-sm
           block content

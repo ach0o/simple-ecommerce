@@ -35,13 +35,11 @@ mixin productItem(product)
     input(type="text", form="product-form", name="productId", value=`${product.id}`, hidden) 
     form(action=`/orders/${product.uid}`, method="post").product-form#product-form
     button.order-button(type="submit", form="product-form") Order Now
-    button.add-cart-button(type="submit", form="product-form" formaction=`/carts/${product.uid}`) Add To Cart
+    button.cart-button.add-cart-button(type="submit", form="product-form" formaction=`/carts/${product.uid}`) Add To Cart
 
 //- 
 //- View blocks
 //- 
-block navigation
-  a Cart: #{cartTotal}
 block content
   h1=title
   .product-detail.center
