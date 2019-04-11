@@ -1,0 +1,50 @@
+extends layout
+
+mixin orderItem(order)
+  tr.center.order-item
+    td 0
+    td
+      ul
+        each product in order.products
+          li
+            a(href=`/categories/all/${product.productUid}`) #{product.productUid}(#{product.option}) x #{product.quantity}
+    td=order.totalPrice
+    td=order.payment.method
+    td
+      if order.shippment
+        span=order.shippment.method
+        br
+        span=order.shippment.trackingId
+        br
+        span=order.shippment.shipped
+      else
+        span -
+    td=order.status
+    td=order.created
+    td
+      if order.status === 'PREP'
+        button() Cancel
+      else
+        button(disabled) Cancel
+
+mixin displayOrders(orders)
+  each order in orders
+    +orderItem(order)
+
+block content
+  h1=title
+  div.order-list
+    table
+      thead: tr
+        th #
+        th product list
+        th total price
+        th payment method
+        th shippment method
+        th status
+        th ordered date
+      tbody
+        if orders
+          +displayOrders(orders)
+        else
+          h2 Order list is empty.

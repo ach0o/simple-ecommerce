@@ -3,6 +3,7 @@ const carts = require('./carts');
 const categories = require('./categories');
 const databases = require('./databases');
 const auths = require('./auths');
+const orders = require('./orders');
 // require('./tempAddData');
 
 module.exports = {
@@ -11,6 +12,7 @@ module.exports = {
     categories,
     carts,
     auths,
+    orders,
   },
   databases,
 };
