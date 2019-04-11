@@ -1,6 +1,48 @@
 extends layout
 
+mixin cartItem(item)
+  tr.center.cart-item
+    td.thumbnail
+      a(href=`/categories/all/${item.productUid}`)
+        img(src=`/images/${item.image}`, alt="", srcset="")
+    td=item.name
+    td=item.option
+    td=item.price
+    td=item.quantity
+    - total += item.price * item.quantity
+    td=item.price * item.quantity
+
+mixin displayCartItems(items)
+  each item in items
+    +cartItem(item)
+
+mixin displayTotals()
+  hr
+  .row.right
+    h3 Total: #{total}
+
+
 block content
   h1=title
-  .row
-    p items
+  div(style="overflow:auto")
+    table(style="width:100%;")
+      thead: tr
+        th image
+        th product info
+        th option
+        th price
+        th quantity
+        th total
+      tbody
+        - let total = 0
+        if cartItems
+          +displayCartItems(cartItems)
+        else
+          h2 Cart is empty.
+
+  +displayTotals()
+  .row.center
+    a(href="/carts/clear")
+      button.cart-button.clear-cart-button Clear Cart
+    a(href="/order")
+      button.order-button Order

@@ -1,8 +1,8 @@
 const { ProductModel } = require('./model');
 
 class Product {
-  static getAll() {
-    return ProductModel.find({});
+  static getAll(options = {}) {
+    return ProductModel.find(options);
   }
 
   static getOne(options = {}) {

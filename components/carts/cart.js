@@ -12,6 +12,10 @@ class UserCart {
   static get(option) {
     return UserCartModel.findOne({ userId: option.userId });
   }
+
+  static remove(option = {}) {
+    return UserCartModel.deleteOne(option);
+  }
 }
 
 module.exports = UserCart;
