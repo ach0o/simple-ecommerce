@@ -39,13 +39,14 @@ router.post('/login', (req, res, next) => {
     UserCart.add(option)
       .catch(err => next(err));
   }
-  res.redirect('/');
+  const redirectTo = req.session.lastPosition || '/';
+  delete req.session.lastPosition;
+  res.redirect(redirectTo);
 });
 
 router.get('/logout', (req, res, next) => {
   res.locals.toRender.title = 'Logout';
-  req.session.destroy(err => next(err));
-  res.redirect('/');
+  req.session.destroy(err => res.redirect('/'));
 });
 
 module.exports = router;

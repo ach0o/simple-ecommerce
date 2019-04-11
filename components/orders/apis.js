@@ -15,9 +15,11 @@ function renderHelperMiddleware(req, res, next) {
 
 function requireAuthorization(req, res, next) {
   if (!req.session.userId) {
+    req.session.lastPosition = req.originalUrl;
     res.redirect('/auths/login');
+  } else {
+    next();
   }
-  next();
 }
 
 router.use(requireAuthorization);
@@ -32,6 +34,23 @@ router.get('/', (req, res, next) => {
       res.render('orders', { orders, ...res.locals.toRender });
     })
     .catch(err => next(err));
+});
+
+/**
+ * Redirect to product page
+ */
+router.get('/:productUid', (req, res, next) => {
+  res.redirect(`/categories/all/${req.params.productUid}`);
+});
+
+/**
+ * Post direct order
+ */
+router.post('/:productUid', (req, res, next) => {
+  const { productUid } = req.params;
+  const quantity = parseInt(req.body.quantity, 10);
+  const order = { productUid, quantity, ...req.body };
+  res.render('payment', { orders: [order], ...res.locals.toRender });
 });
 
 

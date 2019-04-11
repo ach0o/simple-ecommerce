@@ -1,0 +1,27 @@
+extends cart
+
+block content
+  h1=title
+  div.order-list
+    table
+      thead: tr
+        th image
+        th product info
+        th option
+        th price
+        th quantity
+        th total
+      tbody
+        if orders
+          +displayCartItems(orders)
+        else
+          h2 Order list is empty.
+
+  .row
+    h2 Payment Information
+    h3 Select Methods
+    h5 confirm your payment
+    h5 Agree on our terms
+
+    a(href="/payment")
+      button.order-button Check Out
