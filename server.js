@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const logger = require('morgan');
 const session = require('express-session');
-const { errorHandlers } = require('./middlewares');
+const { errorHandlers, renderHelpers } = require('./middlewares');
 const { routers, databases } = require('./components');
 
 const app = express();
@@ -24,6 +24,7 @@ app.use(
   }),
 );
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(renderHelpers.setLocals);
 app.use('/products', routers.products);
 app.use('/carts', routers.carts);
 app.use('/auths', routers.auths);

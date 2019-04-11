@@ -7,10 +7,7 @@ const Product = require('./product');
 const router = Router();
 
 function renderHelperMiddleware(req, res, next) {
-  res.locals.toRender = {
-    title: 'Product',
-    currentUrlPath: req.originalUrl,
-  };
+  res.locals.toRender.title = 'Product';
   next();
 }
 

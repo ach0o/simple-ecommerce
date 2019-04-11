@@ -7,11 +7,7 @@ const UserCart = require('../carts/cart');
 const router = Router();
 
 function renderHelperMiddleware(req, res, next) {
-  res.locals.toRender = {
-    title: 'Auths',
-    currentUrlPath: req.originalUrl,
-    userId: req.session.userId || 'Guest',
-  };
+  res.locals.toRender.title = 'Auths';
   next();
 }
 

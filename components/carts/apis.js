@@ -8,11 +8,7 @@ const Product = require('./../products/product');
 const router = Router();
 
 function renderHelperMiddleware(req, res, next) {
-  res.locals.toRender = {
-    title: 'Carts',
-    currentUrlPath: req.originalUrl,
-    userId: req.session.userId || 'Guest',
-  };
+  res.locals.toRender.title = 'Carts';
   next();
 }
 
