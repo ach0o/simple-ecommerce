@@ -4,13 +4,13 @@ mixin cartItem(item)
   tr.center.cart-item
     td.thumbnail
       a(href=`/categories/all/${item.productUid}`)
-        img(src=`/images/${item.image}`, alt="", srcset="")
-    td=item.name
+        img(src=`/images/${item.productInfo.images[0]}`, alt="", srcset="")
+    td=item.productInfo.name
     td=item.option
-    td=item.price
+    td=item.productInfo.discountPrice
     td=item.quantity
-    - total += item.price * item.quantity
-    td=item.price * item.quantity
+    - total += item.productInfo.discountPrice * item.quantity
+    td=item.productInfo.discountPrice * item.quantity
 
 mixin displayCartItems(items)
   each item in items
@@ -44,5 +44,6 @@ block content
   .row.center
     a(href="/carts/clear")
       button.cart-button.clear-cart-button Clear Cart
-    a(href="/order")
-      button.order-button Order
+    form(action="/carts/checkout", method="post")#cart-form
+      input(type="number", name="totalPrice", value=`${total}`, hidden)
+      button.order-button(type="submit", form="cart-form") Order

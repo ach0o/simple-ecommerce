@@ -19,10 +19,7 @@ function fillCartItem(item) {
   return new Promise((resolve, reject) => {
     Product.getOne({ _id: item.productId })
       .then((product) => {
-        item.name = product.name;
-        item.image = product.images[0];
-        item.price = product.discountPrice;
-        item.isSoldOut = product.isSoldOut;
+        item.productInfo = product;
         return resolve(item);
       })
       .catch(err => reject(err));
@@ -41,8 +38,13 @@ router.get('/', (req, res, next) => {
   if (req.session.userId) {
     const option = { userId: req.session.userId };
     UserCart.get(option)
+      .populate({ path: 'carts.productId', model: 'product' })
       .then((userCart) => {
-        if (userCart) { req.session.carts = userCart.carts; }
+        if (userCart) {
+          const { productId, ...carts } = userCart.carts;
+          req.session.carts = carts;
+          req.session.carts.productInfo = productId;
+        }
       })
       .catch(err => next(err));
   }
@@ -54,9 +56,15 @@ router.get('/', (req, res, next) => {
   }
   Promise.all(fetchProductInfo)
     .then((cartItems) => {
+      req.session.carts = cartItems;
       res.render('cart', { cartItems, ...res.locals.toRender });
     })
     .catch(err => next(err));
+});
+
+router.post('/checkout', (req, res, next) => {
+  req.session.cartsTotalPrice = req.body.totalPrice;
+  res.redirect('/orders/checkout');
 });
 
 /**
@@ -100,11 +108,9 @@ router.get('/clear', (req, res, next) => {
 
   if (req.session.userId) {
     UserCart.remove({ userId: req.session.userId })
-      .then(res.redirect('back'))
       .catch(err => next(err));
-  } else {
-    res.redirect('back');
   }
+  res.redirect('back');
 });
 
 module.exports = router;
