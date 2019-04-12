@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose');
 
 const OrderSchema = new Schema({
-  userId: { type: Schema.Types.ObjectId, ref: 'user' },
+  userId: { type: String },
   status: {
     type: String,
     enum: ['PREP', 'SHIP', 'DELI', 'CMPT', 'CNCL'],
@@ -12,7 +12,7 @@ const OrderSchema = new Schema({
     productId: { type: Schema.Types.ObjectId, ref: 'product' },
     option: { type: String },
     quantity: { type: Number, min: 1, max: 999 },
-    sumPrice: { type: Number },
+    productInfo: { type: Object },
   }],
   created: { type: Date, default: Date.now },
   totalPrice: { type: Number },
@@ -21,7 +21,7 @@ const OrderSchema = new Schema({
     paidAmount: Number,
     processed: Date,
   },
-  shippment: {
+  shipment: {
     method: String,
     trackingId: String,
     shipped: Date,

@@ -1,5 +1,7 @@
 const { Router } = require('express');
 const Order = require('./order');
+const UserCart = require('../carts/cart');
+const Product = require('../products/product');
 
 
 /**
@@ -37,6 +39,51 @@ router.get('/', (req, res, next) => {
 });
 
 /**
+ * Get checkout page
+ */
+router.get('/checkout', (req, res, next) => {
+  // get cart items and set.
+  res.render('checkout', { orders: req.session.carts, ...res.locals.toRender });
+});
+
+/**
+ * Post check out the products
+ */
+router.post('/checkout', (req, res, next) => {
+  // Add integration with third party payment system
+  // const callPaymentSystem = new Promise((resolve, reject) => resolve(true));
+  // const callShipmentSystem = new Promise((resolve, reject) => resolve(true));
+  // callPaymentSystem()
+  //   .then(callShipmentSystem()
+  //     .then())
+  const order = {
+    userId: req.session.userId,
+    products: req.session.carts,
+    totalPrice: req.session.cartsTotalPrice,
+    payment: {
+      method: req.body.payment,
+      processed: Date.now(),
+    },
+    shipment: {
+      method: req.body.shipment,
+    },
+  };
+
+  // Add to Order collection
+  Order.add(order)
+    .then(() => {
+      // Delete usercart from db
+      UserCart.remove({ userId: req.session.userId })
+        .then(() => {
+          req.session.carts = [];
+          res.redirect('/orders');
+        });
+    })
+    .catch(err => next(err));
+});
+
+
+/**
  * Redirect to product page
  */
 router.get('/:productUid', (req, res, next) => {
@@ -49,8 +96,20 @@ router.get('/:productUid', (req, res, next) => {
 router.post('/:productUid', (req, res, next) => {
   const { productUid } = req.params;
   const quantity = parseInt(req.body.quantity, 10);
-  const order = { productUid, quantity, ...req.body };
-  res.render('payment', { orders: [order], ...res.locals.toRender });
+  const { productId, option } = req.body;
+  Product.getOne({ uid: productUid })
+    .then((product) => {
+      // set to session cart
+      req.session.carts = [{
+        productId,
+        productUid,
+        option,
+        quantity,
+        productInfo: product,
+      }];
+      res.render('checkout', { orders: req.session.carts, ...res.locals.toRender });
+    })
+    .catch(err => next(err));
 });
 
 

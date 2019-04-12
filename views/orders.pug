@@ -7,16 +7,16 @@ mixin orderItem(order)
       ul
         each product in order.products
           li
-            a(href=`/categories/all/${product.productUid}`) #{product.productUid}(#{product.option}) x #{product.quantity}
+            a(href=`/categories/all/${product.productUid}`) #{product.productInfo.name}(#{product.option}) x #{product.quantity}
     td=order.totalPrice
     td=order.payment.method
     td
-      if order.shippment
-        span=order.shippment.method
+      if order.shipment
+        span=order.shipment.method
         br
-        span=order.shippment.trackingId
+        span=order.shipment.trackingId
         br
-        span=order.shippment.shipped
+        span=order.shipment.shipped
       else
         span -
     td=order.status
@@ -40,9 +40,10 @@ block content
         th product list
         th total price
         th payment method
-        th shippment method
+        th shipment method
         th status
         th ordered date
+        th
       tbody
         if orders
           +displayOrders(orders)
