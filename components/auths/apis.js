@@ -20,7 +20,8 @@ router.get('/login', (req, res, next) => {
   if (req.session.userId) {
     res.redirect('/');
   } else {
-    res.render('login');
+    res.locals.toRender.title = 'Login';
+    res.render('login', { ...res.locals.toRender });
   }
 });
 
