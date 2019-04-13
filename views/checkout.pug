@@ -1,66 +1,65 @@
 extends cart
 
 mixin PaymentForm()
-  .row
-    h2 Payment Form
-    h4 Select your payment method
-    input(type="radio", form="checkout-form",  name="payment", value="credit-card" checked)
-    span Credit Card
-    br
-    input(type="radio", form="checkout-form", name="payment", value="paypal" checked)
-    span Paypal
-    br
-    input(type="radio", form="checkout-form", name="payment", value="cash" checked)
-    span Cash
+  h2 Payment Form
+  h5 Select your payment method
+  input(type="radio", form="checkout-form",  name="payment", value="credit-card" checked)
+  span Credit Card
+  br
+  input(type="radio", form="checkout-form", name="payment", value="paypal")
+  span Paypal
+  br
+  input(type="radio", form="checkout-form", name="payment", value="cash")
+  span Cash
 
 mixin ShipmentForm()
-  .row
-    h2 Shipment Form
-    h4 Select your shipment method
-    input(type="radio", form="checkout-form",  name="shipment", value="domestic" checked)
-    span Domestic Delivery
-    br
-    input(type="radio", form="checkout-form", name="shipment", value="domestic-quick" checked)
-    span Domestic Quick Delivery
-    br
-    input(type="radio", form="checkout-form", name="shipment", value="international" checked)
-    span International Delivery
-    br
-    input(type="radio", form="checkout-form", name="shipment", value="pickup" checked)
-    span Pick up
+  h2 Shipment Form
+  h5 Select your shipment method
+  input(type="radio", form="checkout-form",  name="shipment", value="domestic" checked)
+  span Domestic Delivery
+  br
+  input(type="radio", form="checkout-form", name="shipment", value="domestic-quick")
+  span Domestic Quick Delivery
+  br
+  input(type="radio", form="checkout-form", name="shipment", value="international")
+  span International Delivery
+  br
+  input(type="radio", form="checkout-form", name="shipment", value="pickup")
+  span Pick up
 
 //- Override cart's content
 block content
   h1=title
-  div.order-list
-    table
-      thead: tr
-        th image
-        th product info
-        th option
-        th price
-        th quantity
-        th total
-      tbody
-        if orders
+  if !orders
+    h2 Order list is empty.
+  else
+    div.order-list
+      table
+        thead: tr
+          th image
+          th product info
+          th option
+          th price
+          th quantity
+          th total
+        tbody
           +displayCartItems(orders)
-        else
-          h2 Order list is empty.
-  hr
-  +PaymentForm()
-  br
-  +ShipmentForm()
+    
+    .uk-section-muted.uk-margin.uk-padding
+      +PaymentForm()
+      br
+      +ShipmentForm()
 
-  hr 
-  .row
-    h4 Agree on our terms
-    input(type="checkbox", form="checkout-form", name="agree")
-    span Agree
+      hr 
+      h3 Agree on our terms
+      input.uk-checkbox(type="checkbox", form="checkout-form", name="agree")
+      span  Agree
+      br
+      h3 Confirm your payment
+      input.uk-checkbox(type="checkbox", form="checkout-form", name="confirm")
+      span  Confirm
 
-  .row
-    h4 Confirm your payment
-    input(type="checkbox", form="checkout-form", name="confirm")
-    span Confirm
+      hr
 
-  form(action="/orders/checkout", method="post").checkout-form#checkout-form
-  button.order-button(type="submit", form="checkout-form") Check Out
+      form(action="/orders/checkout", method="post").checkout-form#checkout-form
+      button.uk-button.uk-button-primary.uk-button-large(type="submit", form="checkout-form") Check Out

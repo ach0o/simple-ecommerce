@@ -45,27 +45,6 @@ th, td {
 /* NAVIGATION */
 /* ---------------------------------------------------- */
 
-/* The side navigation menu */
-.sidenav {
-  height: 100%; /* 100% Full-height */
-  width: inherit;
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Stay on top */
-  top: 0; /* Stay at the top */
-  left: 0;
-  background-color: #111; /* Black*/
-  overflow-x: hidden; /* Disable horizontal scroll */
-  padding-top: 60px; /* Place content 60px from the top */
-}
-
-/* The navigation menu links */
-.sidenav a {
-  padding-left: 20%;
-  text-decoration: none;
-  font-size: 20px;
-  color: #818181;
-  display: block;
-}
 
 /* ---------------------------------------------------- */
 /* PRODUCT LIST */
@@ -106,65 +85,42 @@ span.dcPrice {
 /* ---------------------------------------------------- */
 /* PRODUCT DETAIL */
 /* ---------------------------------------------------- */
-.original-image {
-  margin-right: 10px;
+.product-detail {
+  text-align: left;
 }
+
+.original-image {
+  float: left;
+}
+
 .original-image a img {
   max-width: 400px;
   max-height: 400px;
 }
-.product-detail .description {
-  text-align: left;
+
+.description th,
+.description td {
+  padding: 12px 5px;
 }
-.product-detail .options,
-.product-detail .quantity {
+
+.description .product-button button {
+  margin-top: 20px;
   width: 50%;
-  font-size: 100%;
 }
 
-.product-detail table td,
-.product-detail table th {
-  padding-top: 25px;
-  padding-right: 10px;
-  vertical-align: top;
-}
-
-.product-button {
-  display: flex;
-  margin: 30px 0px;
-}
-
-.order-button {
-  width: 68%;
-  height: 80px;
-  background-color: gold;
-  color: black;
-  font-size: 150%;
-  font-weight: bold;
-  margin-right: 3px;
-}
-
-.cart-button {
-  width: 28%;
-  height: 80px;
-  background-color: grey;
-  color: #333;
-  font-weight: bold;
-}
-
-.add-cart-button {
-  font-size: 110%;
-}
 
 /* ---------------------------------------------------- */
 /* CART ITEM */
 /* ---------------------------------------------------- */
+.cart-item {
+  text-align: center;
+}
 .cart-item td {
   padding: 4px;
 }
 
 .clear-cart-button {
-  font-size: 150%;
+  margin-right: 15px;
 }
 
 .cart-list {
@@ -172,5 +128,41 @@ span.dcPrice {
 }
 
 .cart-list table {
+  width: 100%;
+}
+
+/* ---------------------------------------------------- */
+/* ORDER ITEM */
+/* ---------------------------------------------------- */
+.order-item-table th {
+  white-space: nowrap;
+  padding: 0px 15px;
+}
+.order-item-table td:nth-child(2){
+  padding-bottom: 10px;
+  padding-right: 10px;
+  text-align: left;
+}
+.order-item-table td{
+  text-align: center;
+}
+
+.order-item-list {
+  list-style: none;
+}
+
+.order-item-list li{
+  white-space: nowrap;
+  padding-bottom: 10px;
+}
+.order-item-list li:last-child {
+  padding-bottom: 0px;
+}
+
+.order-list {
+  overflow: auto;
+}
+
+.order-list table {
   width: 100%;
 }

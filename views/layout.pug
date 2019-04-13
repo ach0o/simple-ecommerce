@@ -5,21 +5,29 @@ html(lang="en")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     meta(http-equiv="X-UA-Compatible", content="ie=edge")
     link(rel='stylesheet', href='/stylesheets/style.css')
-    link(rel='stylesheet', href='/stylesheets/simple-grid.css')
+    //- UI KIT CSS
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.3/css/uikit.min.css')
+
     title Simple Ecommerce
   body
-    .container
-      .row
-        .col-2.col-3-sm
-          .sidenav
-            a(href="/") Home
-            a=userId
+    .uk-container.uk-grid.uk-padding
+      .uk-width-auto
+        ul.uk-nav.uk-nav-default
+          li: a(href="/") Home
+          li.uk-nav-header User Info.
+          li: a=userId
+          li
             if userId === 'Guest'
               a(href="/auths/login") Login
             else
               a(href="/auths/logout") Logout
-            a(href='/carts' alt='carts') Cart: #{cartTotal}
-            br
-            block navigation
-        .col-10.col-9-sm
-          block content
+          li: a(href='/carts' alt='carts') Cart: #{cartTotal}
+          li.uk-nav-divider
+
+          block navigation
+      .uk-width-expand.uk-padding-remove-top
+        block content
+
+    //- UI KIT JS
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.3/js/uikit.min.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.3/js/uikit-icons.min.js")

@@ -5,7 +5,7 @@ extends layout
 //- 
 mixin productItem(product)
   //- Set tags for single product
-  .box.col-4
+  .box
     .thumbnail
       a(href=`${currentUrlPath}/${product.uid}`)
         img(src=`/images/${product.images[0] || 'sorry.png'}`, alt=`image of ${product.name}`)
@@ -30,8 +30,8 @@ mixin displayProducts(products)
 mixin categoryItem(category)
   //- Set tags for single category
   a(href=`/categories/${category.uri}`)=category.name
-  .child-category(style='padding-left:20px;')
-    if category.childCategories
+  if category.childCategories
+    ul.uk-nav-sub
       each child in category.childCategories
         +categoryItem(child)
 
@@ -39,14 +39,16 @@ mixin displayCategories(categories)
   //- Create a list of categories
   each category in categories
     if category.isParent
-      +categoryItem(category)
+      li.uk-parent
+        +categoryItem(category)
 
 //- 
 //- View blocks
 //- 
 block navigation
+  li.uk-nav-header Menu
   +displayCategories(categories)
 block content
   h1=title
-  .product-list.center
+  .product-list
     +displayProducts(products)

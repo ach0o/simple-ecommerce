@@ -1,7 +1,7 @@
 extends layout
 
 mixin cartItem(item)
-  tr.center.cart-item
+  tr.cart-item
     td.thumbnail
       a(href=`/categories/all/${item.productUid}`)
         img(src=`/images/${item.productInfo.images[0]}`, alt="", srcset="")
@@ -17,33 +17,36 @@ mixin displayCartItems(items)
     +cartItem(item)
 
 mixin displayTotals()
-  hr
-  .row.right
-    h3 Total: #{total}
+  h3 Total: #{total}
 
 
 block content
+  //- variable for total price 
+  - let total = 0
+  
   h1=title
-  div.cart-list
-    table
-      thead: tr
-        th image
-        th product info
-        th option
-        th price
-        th quantity
-        th total
-      tbody
-        - let total = 0
-        if cartItems
+  if !cartItems
+    h2 Cart is empty.
+  else
+    div.cart-list
+      table
+        thead: tr
+          th image
+          th product info
+          th option
+          th price
+          th quantity
+          th total
+        tbody
           +displayCartItems(cartItems)
-        else
-          h2 Cart is empty.
 
-  +displayTotals()
-  .row.center
-    a(href="/carts/clear")
-      button.cart-button.clear-cart-button Clear Cart
     form(action="/carts/checkout", method="post")#cart-form
       input(type="number", name="totalPrice", value=`${total}`, hidden)
-      button.order-button(type="submit", form="cart-form") Order
+
+    .uk-align-right.uk-margin
+      +displayTotals()
+      a.uk-margin-right(href="/carts/clear")
+        button.uk-button.uk-button-default.uk-button-large Clear Cart
+
+      button.uk-button.uk-button-primary.uk-button-large(type="submit", form="cart-form") Order
+    

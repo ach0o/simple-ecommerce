@@ -24,29 +24,29 @@ mixin productItem(product)
       tr
         th Options
         td
-          select.options(form="product-form", name="option")
+          select.uk-form-small.uk-select.options(form="product-form", name="option")
             each qty, option in product.optionQty
                 option(value=option) #{option}: #{qty} left
       tr
         th Quantity
         td
-          input.quantity(type="number", form="product-form", name="quantity", value="1", max=10, required) 
-  .product-button
-    input(type="text", form="product-form", name="productId", value=`${product.id}`, hidden) 
-    input(type="text", form="product-form", name="name", value=`${product.name}`, hidden) 
-    input(type="text", form="product-form", name="image", value=`${product.images[0]}`, hidden) 
-    input(type="text", form="product-form", name="price", value=`${product.discountPrice}`, hidden) 
-    input(type="bool", form="product-form", name="isSoldOut", value=`${product.isSoldOut}`, hidden) 
-    form(action=`/orders/${product.uid}`, method="post").product-form#product-form
-    button.order-button(type="submit", form="product-form") Order Now
-    button.cart-button.add-cart-button(type="submit", form="product-form" formaction=`/carts/${product.uid}`) Add To Cart
+          input.uk-form-small.uk-textarea.quantity(type="number", form="product-form", name="quantity", value="1", max=10, required) 
+    .product-button
+      input(type="text", form="product-form", name="productId", value=`${product.id}`, hidden) 
+      input(type="text", form="product-form", name="name", value=`${product.name}`, hidden) 
+      input(type="text", form="product-form", name="image", value=`${product.images[0]}`, hidden) 
+      input(type="text", form="product-form", name="price", value=`${product.discountPrice}`, hidden) 
+      input(type="bool", form="product-form", name="isSoldOut", value=`${product.isSoldOut}`, hidden) 
+      form(action=`/orders/${product.uid}`, method="post").product-form#product-form
+      button.uk-button.uk-button-primary.uk-button-large(type="submit", form="product-form") Order Now
+      button.uk-button.uk-button-default.uk-button-large(type="submit", form="product-form" formaction=`/carts/${product.uid}`) Add To Cart
 
 //- 
 //- View blocks
 //- 
 block content
   h1=title
-  .product-detail.center
+  .product-detail.uk-margin.uk-grid
     if product
       +productItem(product)
     else

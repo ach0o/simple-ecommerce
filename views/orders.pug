@@ -1,40 +1,45 @@
 extends layout
 
 mixin orderItem(order)
-  tr.center.order-item
-    td 0
-    td
-      ul
-        each product in order.products
-          li
-            a(href=`/categories/all/${product.productUid}`) #{product.productInfo.name}(#{product.option}) x #{product.quantity}
-    td=order.totalPrice
-    td=order.payment.method
-    td
-      if order.shipment
-        span=order.shipment.method
-        br
-        span=order.shipment.trackingId
-        br
-        span=order.shipment.shipped
-      else
-        span -
-    td=order.status
-    td=order.created
-    td
-      if order.status === 'PREP'
-        button() Cancel
-      else
-        button(disabled) Cancel
+  td
+    ul.order-item-list
+      each product in order.products
+        li
+          a(href=`/categories/all/${product.productUid}`)
+            span #{product.productInfo.name} (#{product.option})x#{product.quantity}
+            br
+            span = #{product.quantity * product.productInfo.discountPrice}
+  td=order.totalPrice
+  td=order.payment.method
+  td
+    if order.shipment
+      span=order.shipment.method
+      br
+      span=order.shipment.trackingId
+      br
+      span=order.shipment.shipped
+    else
+      span -
+  td=order.status
+  td=order.created
+  td
+    if order.status === 'PREP'
+      button() Cancel
+    else
+      button(disabled) Cancel
 
 mixin displayOrders(orders)
+  - let index = 1
   each order in orders
-    +orderItem(order)
+    tr.order-item
+      td=index
+      - index += 1
+      +orderItem(order)
 
 block content
   h1=title
   div.order-list
-    table
+    table.order-item-table
       thead: tr
         th #
         th product list
