@@ -40,10 +40,15 @@ router.get('/', (req, res, next) => {
 
 /**
  * Get checkout page
+ * - User must have cart items
  */
 router.get('/checkout', (req, res, next) => {
-  // get cart items and set.
-  res.render('checkout', { orders: req.session.carts, ...res.locals.toRender });
+  if (!req.session.carts) {
+    res.redirect('/carts');
+  } else {
+    // get cart items and set.
+    res.render('checkout', { orders: req.session.carts, ...res.locals.toRender });
+  }
 });
 
 /**
