@@ -48,7 +48,8 @@ router.post('/login', (req, res, next) => {
 
 router.get('/logout', (req, res, next) => {
   res.locals.toRender.title = 'Logout';
-  req.session.destroy(err => res.redirect('/'));
+  req.session.destroy();
+  res.end();
 });
 
 module.exports = router;
