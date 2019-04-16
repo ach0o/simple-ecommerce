@@ -6,30 +6,31 @@ const UserCart = require('../carts/cart');
  */
 const router = Router();
 
-function renderHelperMiddleware(req, res, next) {
-  res.locals.toRender.title = 'Auths';
+/**
+ * Middleware for auths router
+ * - allow access for guest users only
+ * - send back or home if logged in user access this route
+ */
+router.use((req, res, next) => {
+  if (req.session.userId) {
+    res.redirect('/');
+  }
+  res.locals.toRender.title = 'Login';
   next();
-}
-
-router.use(renderHelperMiddleware);
+});
 
 /**
  * Get login page
  */
-router.get('/login', (req, res, next) => {
-  if (req.session.userId) {
-    res.redirect('/');
-  } else {
-    res.locals.toRender.title = 'Login';
-    res.render('login', { ...res.locals.toRender });
-  }
+router.get('/login', (req, res) => {
+  res.render('login', { ...res.locals.toRender });
 });
 
 /**
  * Post login as a user
+ * - cart items stored in the session is added to user's cart
  */
 router.post('/login', (req, res, next) => {
-  res.locals.toRender.title = 'Login';
   req.session.userId = 'TestUser';
 
   if (req.session.carts) {
