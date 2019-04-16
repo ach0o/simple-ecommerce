@@ -14,10 +14,16 @@ function renderHelperMiddleware(req, res, next) {
 
 router.use(renderHelperMiddleware);
 
-// Helper function to set required data from db
+/**
+ * Helper function to set required data from the database
+ * Explicitly fetch product data to get the most recent data
+ * to avoid problems like trying to purchase products
+ * that are sold out or not applying the discount prices and etc.
+ */
 function fillCartItem(item) {
   return new Promise((resolve, reject) => {
     Product.getOne({ _id: item.productId })
+      .select('-uid -_id')
       .then((product) => {
         item.productInfo = product;
         return resolve(item);
@@ -30,22 +36,17 @@ function fillCartItem(item) {
  * Get cart list page
  */
 router.get('/', (req, res, next) => {
-  if (!req.session.carts || req.session.carts.length === 0) {
-    res.render('cart', { ...res.locals.toRender });
-    return;
-  }
+  // Set empty carts in the session
+  if (!req.session.carts) { req.session.carts = []; }
 
+  /**
+   * Select cart items and pass them to render cart view
+   * - when the user is authorized, get items from the UserCart collection
+   * - when the user is a guest, then get product data from the Product colletion
+   */
   if (req.session.userId) {
-    const option = { userId: req.session.userId };
-    UserCart.get(option)
-      .populate({ path: 'carts.productId', model: 'product' })
-      .then((userCart) => {
-        if (userCart) {
-          const { productId, ...carts } = userCart.carts;
-          req.session.carts = carts;
-          req.session.carts.productInfo = productId;
-        }
-      })
+    UserCart.get({ userId: req.session.userId })
+      .then((carts) => { req.session.carts = carts; })
       .catch(err => next(err));
   }
 

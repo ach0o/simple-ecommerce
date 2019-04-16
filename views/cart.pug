@@ -25,7 +25,7 @@ block content
   - let total = 0
   
   h1=title
-  if !cartItems
+  if !cartItems || cartItems.length === 0
     h2 Cart is empty.
   else
     div.cart-list

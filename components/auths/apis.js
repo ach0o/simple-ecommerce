@@ -33,17 +33,26 @@ router.get('/login', (req, res) => {
 router.post('/login', (req, res, next) => {
   req.session.userId = 'TestUser';
 
-  if (req.session.carts) {
-    const option = {
-      userId: 'TestUser',
-      carts: req.session.carts,
-    };
-    UserCart.add(option)
-      .catch(err => next(err));
-  }
-  const redirectTo = req.session.lastPosition || '/';
-  delete req.session.lastPosition;
-  res.redirect(redirectTo);
+  const option = {
+    userId: req.session.userId,
+    carts: req.session.carts,
+  };
+
+  /**
+   * Collect cart items and redirect to the last position
+   * - Creates new cart for the user when no cart item is found.
+   * - Set cart items to the session
+   */
+  UserCart.get({ userId: req.session.userId })
+    .then((carts) => {
+      if (!carts) { UserCart.add(option); }
+      req.session.carts = req.session.carts || [];
+      req.session.carts = req.session.carts.concat(carts);
+      const redirectTo = req.session.lastPosition || '/';
+      delete req.session.lastPosition;
+      res.redirect(redirectTo);
+    })
+    .catch(err => next(err));
 });
 
 router.get('/logout', (req, res, next) => {
