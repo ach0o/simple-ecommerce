@@ -80,6 +80,7 @@ td {
   font-size: 120%;
 }
 
+.thumbnail img,
 .thumbnail a img {
   max-width: 250px;
   max-height: 200px;
