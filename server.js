@@ -29,6 +29,7 @@ app.use('/products', routers.products);
 app.use('/carts', routers.carts);
 app.use('/auths', routers.auths);
 app.use('/orders', routers.orders);
+app.use('/admins', routers.admins);
 app.use('/', routers.categories);
 
 // handling errors

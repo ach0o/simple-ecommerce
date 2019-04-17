@@ -10,7 +10,8 @@ html(lang="en")
 
     title Simple Ecommerce
   body
-    .uk-container.uk-grid.uk-padding
+    //- .uk-container.uk-grid.uk-padding
+    .uk-grid.uk-padding
       .uk-width-auto
         ul.uk-nav.uk-nav-default
           li: a(href="/") Home
@@ -18,7 +19,7 @@ html(lang="en")
           li: a=userId
           li
             if userId === 'Guest'
-              a(href="/auths/login") Login
+              a(href="/auths/login") Login/Register
             else
               a(href="/auths/logout") Logout
           li: a(href='/carts' alt='carts') Cart: #{cartTotal}
