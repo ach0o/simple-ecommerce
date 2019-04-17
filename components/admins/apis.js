@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const multer = require('multer');
 const Product = require('../products/product');
+const fileUtil = require('../../utils/fileUtil');
 
 const upload = multer({ dest: './public/images/' });
 
@@ -99,6 +100,19 @@ router.post('/products/form', upload.single('images'), (req, res, next) => {
 
   Product.saveOne({ uid: data.uid, product: data })
     .then(() => {
+      res.redirect('/admins/products');
+    })
+    .catch(err => next(err));
+});
+
+router.post('/products/delete', upload.none(), (req, res, next) => {
+  const { uid } = req.body;
+  Product.removeOne({ uid })
+    .then((product) => {
+      // Delete image files
+      for (let i = 0; i < product.images.length; i += 1) {
+        fileUtil.deleteImgFile(product.images[i]);
+      }
       res.redirect('/admins/products');
     })
     .catch(err => next(err));

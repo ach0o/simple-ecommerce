@@ -16,6 +16,10 @@ class Product {
       { upsert: true, new: true },
     );
   }
+
+  static removeOne(options = {}) {
+    return ProductModel.findOneAndRemove(options);
+  }
 }
 
 module.exports = Product;
