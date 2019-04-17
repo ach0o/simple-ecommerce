@@ -1,0 +1,26 @@
+extends index
+
+block content
+  h1 Category Form
+  form(action="/admins/categories/form", method="post", onsubmit="return confirm('Are you sure?');")#category-form.uk-form.uk-width-1-3.uk-text-uppercase
+    input(type="text", name="id", value=`${category? category._id : ''}`, hidden)
+    label.uk-form-label(for="name") name
+      input.uk-input(type="text", name="name", required, value=`${category? category.name : ''}`)
+    label.uk-form-label(for="uri") uri
+      input.uk-input(type="text", name="uri", required, value=`${category? category.uri : ''}`)
+    
+    div
+      label.uk-form-label(for="products") products
+      br
+      select.uk-select(name="products", size=10, multiple)
+        each prod in allProducts
+          option(value=prod._id)=prod.name
+    
+    label.uk-form-label(for="isEnabled") is Enabled 
+      if category && category.isEnabled
+        input.uk-checkbox(type="checkbox", name="isEnabled", checked)
+      else
+        input.uk-checkbox(type="checkbox", name="isEnabled")
+    br
+  button.uk-button.uk-button-primary.uk-button-large(type="submit", form="category-form") SAVE
+  button.uk-button.uk-button-danger.uk-button-large(type="submit", form="category-form", formaction="/admins/categories/delete") DELETE

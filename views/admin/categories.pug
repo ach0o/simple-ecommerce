@@ -1,0 +1,45 @@
+extends index
+
+mixin displayItem(item)
+  tr.item
+    each header in headers
+      if header === 'childCategories'
+        td
+          each child in item[header]
+            span=child.name
+      else if header === 'products'
+        td(style="overflow-y:auto;max-height:100px;white-space:nowrap")
+          each product in item[header]
+            a(href=`/categories/all/${product.uid}`)=product.name
+            br
+      else
+        td=item[header]
+    td
+      a.uk-button.uk-button-default(href=`/admins/categories/form?uri=${item.uri}`) EDIT
+
+mixin displayCategories(categories)
+  each category in categories
+    +displayItem(category)
+
+block content
+  //- table headers(= product object keys)
+  - 
+    let headers = [
+     'name', 'uri', 'products', 'isEnabled', 'created', 'updated'
+    ]
+
+  h1 List of Categories
+  a.uk-button.uk-button-primary(href="/admins/categories/form") Add
+
+  if !categories || categories.length === 0
+    h2 No Categories
+  else
+    .admin-list
+      table.uk-table
+        thead: tr
+          for header in headers
+            th=header
+          th actions
+        tbody 
+          +displayCategories(categories)
+        

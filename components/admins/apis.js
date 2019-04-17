@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const multer = require('multer');
 const Product = require('../products/product');
+const Category = require('../categories/category');
 const fileUtil = require('../../utils/fileUtil');
 
 const upload = multer({ dest: './public/images/' });
@@ -28,6 +29,12 @@ router.use((req, res, next) => {
 router.get('/', (req, res) => {
   res.render('admin/index', { ...res.locals.toRender });
 });
+
+/**
+ *
+ * ADMIN PRODUCTS APIS
+ *
+ */
 
 /**
  * Get Product List
@@ -114,6 +121,110 @@ router.post('/products/delete', upload.none(), (req, res, next) => {
         fileUtil.deleteImgFile(product.images[i]);
       }
       res.redirect('/admins/products');
+    })
+    .catch(err => next(err));
+});
+
+
+/**
+ *
+ * ADMIN CATEGORIES APIS
+ *
+ */
+
+/**
+ * Get Category List
+ */
+router.get('/categories', (req, res, next) => {
+  Category.getAll()
+    .then((categories) => {
+      res.render('admin/categories', { categories, ...res.locals.toRender });
+    })
+    .catch(err => next(err));
+});
+
+/**
+ * Get Category Form
+ * Add new category when no query param is given.
+ * Edit the current category when `uri` query param is given.
+ */
+router.get('/categories/form', (req, res, next) => {
+  const { uri } = req.query;
+  /**
+   * If parent, show all non-parent categories, all products
+   * If child, show no categories, parent's products
+   */
+  const fetchCateAndProducts = [];
+  // fetchCateAndProducts.push(Category.getAll({ uri: { $ne: uri }, isParent: false }));
+  fetchCateAndProducts.push(Product.getAll());
+  if (uri) {
+    Category.getOne({ uri })
+      .then((category) => {
+        Promise.all(fetchCateAndProducts)
+          .then((result) => {
+            // const allCategories = result[0];
+            const allProducts = result[0];
+            res.render('admin/categoryForm', {
+              // category, allCategories, allProducts, ...res.locals.toRender,
+              category, allProducts, ...res.locals.toRender,
+            });
+          });
+      })
+      .catch(err => next(err));
+  } else {
+    Promise.all(fetchCateAndProducts)
+      .then((result) => {
+        // const allCategories = result[0];
+        const allProducts = result[0];
+        res.render('admin/categoryForm', {
+          // allCategories, allProducts, ...res.locals.toRender,
+          allProducts, ...res.locals.toRender,
+        });
+      })
+      .catch(err => next(err));
+    // res.render('admin/categoryForm', { ...res.locals.toRender });
+  }
+});
+
+/**
+ * Post Category Form
+ */
+router.post('/categories/form', (req, res, next) => {
+  const { id, ...data } = req.body;
+  /**
+   * Save Category with database id
+   * - if the id exists, update the category.
+   * - otherwise, create new category
+   */
+
+  /**
+   * Reformat products
+   * - set to empty array when user doesn't set any products
+   */
+  data.products = data.products ? data.products : [];
+
+  /**
+   * Reformat isEnabled
+   * - "on" to true
+   */
+  data.isEnabled = data.isEnabled === 'on';
+
+  const saveMethod = id
+    ? Category.updateOne({ id, category: data })
+    : Category.insertOne(data);
+
+  saveMethod
+    .then(() => {
+      res.redirect('/admins/categories');
+    })
+    .catch(err => next(err));
+});
+
+router.post('/categories/delete', (req, res, next) => {
+  const { id } = req.body;
+  Category.removeOne({ _id: id })
+    .then(() => {
+      res.redirect('/admins/categories');
     })
     .catch(err => next(err));
 });

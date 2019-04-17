@@ -18,7 +18,7 @@ class Product {
   }
 
   static removeOne(options = {}) {
-    return ProductModel.findOneAndRemove(options);
+    return ProductModel.findOneAndDelete(options);
   }
 }
 
