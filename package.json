@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node index",
     "dev": "nodemon",
-    "test": "mocha ./tests/* --timeout 5000 --exit"
+    "test": "mocha ./tests/* --timeout 5000 --exit",
+    "initData": "node scripts/initData.js"
   },
   "author": "achooan",
   "license": "ISC",

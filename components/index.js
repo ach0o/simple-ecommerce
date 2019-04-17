@@ -4,7 +4,6 @@ const categories = require('./categories');
 const databases = require('./databases');
 const auths = require('./auths');
 const orders = require('./orders');
-// require('./tempAddData');
 
 module.exports = {
   routers: {
