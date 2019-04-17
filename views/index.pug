@@ -5,19 +5,21 @@ extends layout
 //- 
 mixin productItem(product)
   //- Set tags for single product
-  .box
+  div
     .thumbnail
       a(href=`${currentUrlPath}/${product.uid}`)
         img(src=`/images/${product.images[0] || 'sorry.png'}`, alt=`image of ${product.name}`)
     .description
-      strong.name=product.name
       ul
         li
-          span.price $#{product.price}
-          span.dcPrice $#{product.discountPrice}
+          .uk-text-uppercase.name=product.name
+        li
+          span.price ₩#{product.price}
+          span.dcPrice ₩#{product.discountPrice}
         li.detail=product.description
     .icon
-      span tags# #{product.tags}
+      each tag in product.tags
+        span.uk-badge=tag
 
 mixin displayProducts(products)
   //- Create a list of products 
@@ -50,5 +52,5 @@ block navigation
   +displayCategories(categories)
 block content
   h1=title
-  .product-list
+  .product-list.uk-grid
     +displayProducts(products)
