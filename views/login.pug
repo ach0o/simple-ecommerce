@@ -3,4 +3,7 @@ extends layout
 block content
   h1=title
   form(action="", method="post")
-    button(type="submit") Login as User
+    div
+      button(type="submit") Login as User
+    div
+      button(type="submit" formaction="admins") Login as Admin

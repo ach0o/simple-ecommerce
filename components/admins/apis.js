@@ -16,9 +16,9 @@ const router = Router();
  * - allow access for admin users only
  */
 router.use((req, res, next) => {
-  // if (!req.session.userId || !req.session.isAdmin) {
-  //   res.redirect('/');
-  // }
+  if (!req.session.userId || !req.session.isAdmin) {
+    res.redirect('/');
+  }
   res.locals.toRender.title = 'For Admins Only';
   next();
 });

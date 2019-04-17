@@ -55,6 +55,15 @@ router.post('/login', (req, res, next) => {
     .catch(err => next(err));
 });
 
+/**
+ * Temporary auth for admin user
+ */
+router.post('/admins', (req, res) => {
+  req.session.userId = 'AdminUser';
+  req.session.isAdmin = true;
+  res.redirect('/admins');
+});
+
 router.get('/logout', (req, res, next) => {
   res.locals.toRender.title = 'Logout';
   req.session.destroy();
