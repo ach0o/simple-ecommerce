@@ -1,0 +1,48 @@
+extends index
+
+mixin displayItem(item)
+  tr.item
+    td=index
+    each header in headers
+      if header === 'image'
+        td.thumbnail
+          img(src=`/images/${item.images[0]}`, alt="")
+      else if header === 'optionQty'
+        td=Object.keys(item[header])
+      else
+        td=item[header]
+    td
+      a.uk-button.uk-button-default(href=`/admins/products/form?uid=${item.uid}`) EDIT
+
+mixin displayProducts(products)
+  each product in products
+    +displayItem(product)
+    - index += 1
+
+block content
+  //- variable for product counter
+  - let index = 1
+
+  //- table headers(= product object keys)
+  - 
+    let headers = [
+     'image', 'uid', 'name', 'description', 'optionQty', 'price', 'discountPrice',
+     'isSoldOut', 'tags', 'lastWarehoused', 'created', 'updated'
+    ]
+
+  h1 List of Products
+  a.uk-button.uk-button-primary(href="/admins/products/form") Add
+
+  if !products || products.length === 0
+    h2 No products
+  else
+    .admin-list
+      table.uk-table
+        thead: tr
+          th #
+          for header in headers
+            th=header
+          th actions
+        tbody 
+          +displayProducts(products)
+        

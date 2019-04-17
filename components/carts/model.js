@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 
-const UserCartSchema = new Schema({
+const CartSchema = new Schema({
   userId: { type: String },
   carts: [{
     productUid: { type: Number },
@@ -12,9 +12,9 @@ const UserCartSchema = new Schema({
   updated: { type: Date, default: Date.now },
 });
 
-const UserCartModel = model('usercart', UserCartSchema);
+const CartModel = model('cart', CartSchema);
 
 module.exports = {
-  UserCartSchema,
-  UserCartModel,
+  CartSchema,
+  CartModel,
 };

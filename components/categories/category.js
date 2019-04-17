@@ -16,6 +16,22 @@ class Category {
         { path: 'childCategories', ...popOptions.children || {} },
       ]);
   }
+
+  static insertOne(options = {}) {
+    return CategoryModel.create(options);
+  }
+
+  static updateOne(options = {}) {
+    return CategoryModel.findOneAndUpdate(
+      { _id: options.id },
+      { ...options.category, updated: Date.now() },
+      { upsert: true, new: true },
+    );
+  }
+  
+  static removeOne(options = {}) {
+    return CategoryModel.findOneAndDelete(options);
+  }
 }
 
 module.exports = Category;

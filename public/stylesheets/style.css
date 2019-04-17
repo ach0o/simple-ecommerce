@@ -37,14 +37,14 @@ body {
   visibility: hidden;
 }
 
-th, td {
+th,
+td {
   border-bottom: 1px solid #ddd;
 }
 
 /* ---------------------------------------------------- */
 /* NAVIGATION */
 /* ---------------------------------------------------- */
-
 
 /* ---------------------------------------------------- */
 /* PRODUCT LIST */
@@ -54,29 +54,33 @@ th, td {
   margin-top: 30px;
 }
 
-.box {
-  float: left;
-}
-
 .description ul {
   list-style: none;
   padding: 0;
 }
+
 .description .detail {
   text-align: start;
   padding-top: 5px;
+  max-width: 250px;
 }
 
-span.price {
+.description .name {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.description .price {
   text-decoration-line: line-through;
   padding-right: 10px;
 }
 
-span.dcPrice {
-  font-size: 110%;
+.description .dcPrice {
   font-weight: bold;
+  font-size: 120%;
 }
 
+.thumbnail img,
 .thumbnail a img {
   max-width: 250px;
   max-height: 200px;
@@ -108,7 +112,6 @@ span.dcPrice {
   width: 50%;
 }
 
-
 /* ---------------------------------------------------- */
 /* CART ITEM */
 /* ---------------------------------------------------- */
@@ -138,12 +141,12 @@ span.dcPrice {
   white-space: nowrap;
   padding: 0px 15px;
 }
-.order-item-table td:nth-child(2){
+.order-item-table td:nth-child(2) {
   padding-bottom: 10px;
   padding-right: 10px;
   text-align: left;
 }
-.order-item-table td{
+.order-item-table td {
   text-align: center;
 }
 
@@ -151,7 +154,7 @@ span.dcPrice {
   list-style: none;
 }
 
-.order-item-list li{
+.order-item-list li {
   white-space: nowrap;
   padding-bottom: 10px;
 }
@@ -165,4 +168,12 @@ span.dcPrice {
 
 .order-list table {
   width: 100%;
+}
+
+
+/* ---------------------------------------------------- */
+/* ADMIN - PRODUCTS */
+/* ---------------------------------------------------- */
+.admin-list {
+  overflow-x: auto;
 }

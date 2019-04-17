@@ -1,0 +1,31 @@
+extends index
+
+block content
+  h1 Product Form
+  form(action="/admins/products/form", method="post", enctype="multipart/form-data", onsubmit="return confirm('Are you sure?');")#product-form.uk-form.uk-width-1-3.uk-text-uppercase
+    label.uk-form-label(for="uid") uid
+      input.uk-input(type="number", name="uid", required, value=`${product? product.uid : ''}`)
+    label.uk-form-label(for="name") name
+      input.uk-input(type="text", name="name", required, value=`${product? product.name : ''}`)
+    label.uk-form-label(for="description") description
+      input.uk-input(type="text", name="description", required, value=`${product? product.description : ''}`)
+    label.uk-form-label(for="price") price
+      input.uk-input(type="number", name="price", min=0, required, value=`${product? product.price : ''}`)
+    label.uk-form-label(for="discountPrice") discount Price
+      input.uk-input(type="number", name="discountPrice", min=0, required, value=`${product? product.discountPrice : ''}`)
+    label.uk-form-label(for="optionQty") options (option:quantity, ... Use comma to separate)
+      input.uk-input(type="text", name="optionQty", required, value=`${product? product.optionQty : ''}`)
+    label.uk-form-label(for="tags") tags (Use comma to separate)
+      input.uk-input(type="text", name="tags", required, value=`${product? product.tags : ''}`)
+    div
+      label.uk-form-label(for="images") image (Upload to replace)
+        if product
+          //- show current image
+          .thumbnail
+            img(src=`/images/${product.images[0]}`, alt="")
+        input(type="file", name="images", accept="image/*")
+    label.uk-form-label(for="lastWarehoused") last warehoused date
+      input.uk-input(type="date", name="lastWarehoused", required, value=`${product? product.lastWarehoused : ''}`)
+
+  button.uk-button.uk-button-primary.uk-button-large(type="submit", form="product-form") SAVE
+  button.uk-button.uk-button-danger.uk-button-large(type="submit", form="product-form", formaction="/admins/products/delete") DELETE
