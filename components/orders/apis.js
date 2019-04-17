@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const Order = require('./order');
-const UserCart = require('../carts/cart');
+const Cart = require('../carts/cart');
 const Product = require('../products/product');
 
 
@@ -78,7 +78,7 @@ router.post('/checkout', (req, res, next) => {
   Order.add(order)
     .then(() => {
       /**
-       * Delete usercart from db
+       * Delete cart from db
        * - if the user orders a product directly from the detail page,
        *   reset cart session with cached carts
        * - if the user orders from the cart page,
@@ -90,8 +90,9 @@ router.post('/checkout', (req, res, next) => {
         delete req.session.cacheCarts;
         res.redirect('/orders');
       } else {
-        UserCart.remove({ userId: req.session.userId })
+        Cart.remove({ userId: req.session.userId })
           .then(() => {
+            delete req.session.cacheCarts;
             req.session.carts = [];
             res.redirect('/orders');
           });

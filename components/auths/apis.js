@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const UserCart = require('../carts/cart');
+const Cart = require('../carts/cart');
 
 /**
  * Base Path: /auths
@@ -43,9 +43,9 @@ router.post('/login', (req, res, next) => {
    * - Creates new cart for the user when no cart item is found.
    * - Set cart items to the session
    */
-  UserCart.get({ userId: req.session.userId })
+  Cart.get({ userId: req.session.userId })
     .then((carts) => {
-      if (!carts) { UserCart.add(option); }
+      if (!carts) { Cart.add(option); }
       req.session.carts = req.session.carts || [];
       req.session.carts = req.session.carts.concat(carts);
       const redirectTo = req.session.lastPosition || '/';

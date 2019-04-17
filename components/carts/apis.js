@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const UserCart = require('./cart');
+const Cart = require('./cart');
 const Product = require('./../products/product');
 
 /**
@@ -41,11 +41,11 @@ router.get('/', (req, res, next) => {
 
   /**
    * Select cart items and pass them to render cart view
-   * - when the user is authorized, get items from the UserCart collection
+   * - when the user is authorized, get items from the Cart collection
    * - when the user is a guest, then get product data from the Product colletion
    */
   if (req.session.userId) {
-    UserCart.get({ userId: req.session.userId })
+    Cart.get({ userId: req.session.userId })
       .then((carts) => { req.session.carts = carts; })
       .catch(err => next(err));
   }
@@ -96,7 +96,7 @@ router.post('/:productUid', (req, res, next) => {
   req.session.carts = cartItems;
   if (req.session.userId) {
     // Update cart to database when user is logged in
-    UserCart.add({ userId: req.session.userId, carts: cartItems })
+    Cart.add({ userId: req.session.userId, carts: cartItems })
       .then(result => console.log(result))
       .catch(err => next(err));
   }
@@ -108,7 +108,7 @@ router.get('/clear', (req, res, next) => {
   req.session.carts = [];
 
   if (req.session.userId) {
-    UserCart.remove({ userId: req.session.userId })
+    Cart.remove({ userId: req.session.userId })
       .catch(err => next(err));
   }
   res.redirect('back');

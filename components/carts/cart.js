@@ -1,14 +1,14 @@
 /* eslint-disable object-curly-newline */
-const { UserCartModel } = require('./model');
+const { CartModel } = require('./model');
 
-class UserCart {
+class Cart {
   /**
    * Add a user's cart
    * This automatically updates the cart if the user's cart already exists.
    * @param {object} option
    */
   static add(option) {
-    return UserCartModel.findOneAndUpdate(
+    return CartModel.findOneAndUpdate(
       { userId: option.userId },
       { carts: option.carts },
       { upsert: true, new: true },
@@ -21,12 +21,12 @@ class UserCart {
    */
   static get(options) {
     return new Promise((resolve, reject) => {
-      UserCartModel.findOne({ userId: options.userId })
+      CartModel.findOne({ userId: options.userId })
         .populate({ path: 'carts.productId', model: 'product' })
-        .then((userCart) => {
+        .then((cart) => {
           let savedCarts = [];
-          if (userCart) {
-            savedCarts = userCart.carts.map((item) => {
+          if (cart) {
+            savedCarts = cart.carts.map((item) => {
               const { productId, productUid, option, quantity } = item;
               const productInfo = productId; // populated by product model
 
@@ -46,8 +46,8 @@ class UserCart {
   }
 
   static remove(option = {}) {
-    return UserCartModel.deleteOne(option);
+    return CartModel.deleteOne(option);
   }
 }
 
-module.exports = UserCart;
+module.exports = Cart;
