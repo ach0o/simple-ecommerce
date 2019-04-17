@@ -40,7 +40,7 @@ router.get('/', (req, res, next) => {
 
 /**
  * Get checkout page
- * - User must have cart items
+ * - A user must have cart items to checkouts
  */
 router.get('/checkout', (req, res, next) => {
   if (!req.session.carts) {
@@ -77,16 +77,28 @@ router.post('/checkout', (req, res, next) => {
   // Add to Order collection
   Order.add(order)
     .then(() => {
-      // Delete usercart from db
-      UserCart.remove({ userId: req.session.userId })
-        .then(() => {
-          req.session.carts = [];
-          res.redirect('/orders');
-        });
+      /**
+       * Delete usercart from db
+       * - if the user orders a product directly from the detail page,
+       *   reset cart session with cached carts
+       * - if the user orders from the cart page,
+       *   delete the cart from db.
+       */
+      const { cacheCarts } = req.session;
+      if (cacheCarts) {
+        req.session.carts = cacheCarts;
+        delete req.session.cacheCarts;
+        res.redirect('/orders');
+      } else {
+        UserCart.remove({ userId: req.session.userId })
+          .then(() => {
+            req.session.carts = [];
+            res.redirect('/orders');
+          });
+      }
     })
     .catch(err => next(err));
 });
-
 
 /**
  * Redirect to product page
@@ -101,9 +113,11 @@ router.get('/:productUid', (req, res, next) => {
 router.post('/:productUid', (req, res, next) => {
   const { productUid } = req.params;
   const quantity = parseInt(req.body.quantity, 10);
-  const { productId, option } = req.body;
+  const { productId, option, price } = req.body;
   Product.getOne({ uid: productUid })
     .then((product) => {
+      req.session.cacheCarts = req.session.carts;
+      req.session.cartsTotalPrice = price * quantity;
       // set to session cart
       req.session.carts = [{
         productId,
