@@ -105,6 +105,12 @@ router.post('/products/form', upload.single('images'), (req, res, next) => {
     data.images = [req.file.filename];
   }
 
+  /**
+   * Reformat isSoldOut
+   * - "on" to true
+   */
+  data.isSoldOut = data.isSoldOut === 'on';
+
   Product.saveOne({ uid: data.uid, product: data })
     .then(() => {
       res.redirect('/admins/products');

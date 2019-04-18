@@ -7,6 +7,9 @@ mixin productItem(product)
   //- Set tags for single product
   a.uk-link-reset(href=`${currentUrlPath}/${product.uid}`)
     .uk-card.uk-card-hover.uk-card-body.uk-text-center.uk-card-small
+      if product.isSoldOut
+        .uk-card-badge.uk-label.uk-label-danger sold out
+
       .thumbnail
           img(src=`/images/${product.images[0] || 'sorry.png'}`, alt=`image of ${product.name}`)
       .description

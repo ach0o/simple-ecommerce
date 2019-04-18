@@ -26,6 +26,11 @@ block content
         input(type="file", name="images", accept="image/*")
     label.uk-form-label(for="lastWarehoused") last warehoused date
       input.uk-input(type="date", name="lastWarehoused", required, value=`${product? product.lastWarehoused : ''}`)
+    label.uk-form-label(for="isSoldOut") is sold out 
+      if product && product.isSoldOut
+        input.uk-checkbox(type="checkbox", name="isSoldOut", checked)
+      else
+        input.uk-checkbox(type="checkbox", name="isSoldOut")
 
   button.uk-button.uk-button-primary.uk-button-large(type="submit", form="product-form") SAVE
   button.uk-button.uk-button-danger.uk-button-large(type="submit", form="product-form", formaction="/admins/products/delete") DELETE
