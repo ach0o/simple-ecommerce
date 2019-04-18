@@ -7,10 +7,14 @@ html(lang="en")
     link(rel='stylesheet', href='/stylesheets/style.css')
     //- UI KIT CSS
     link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.3/css/uikit.min.css')
-
     title Simple Ecommerce
   body
+    //- Header
+    include includes/header.pug
+
+    //- Center Content
     .uk-grid.uk-padding
+      //- Menu and Navigation
       .uk-width-auto
         ul.uk-nav.uk-nav-default
           li: a(href="/") Home
@@ -28,9 +32,14 @@ html(lang="en")
           include includes/menu.pug
 
           block navigation
+      
+      //- Content
       .uk-width-expand.uk-padding-remove-top
         block content
 
     //- UI KIT JS
     script(src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.3/js/uikit.min.js")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.3/js/uikit-icons.min.js")
+
+    //- Footer
+    include includes/footer.pug
