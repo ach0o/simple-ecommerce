@@ -1,6 +1,6 @@
 const { before, after } = require('mocha');
 
-const testConfig = require('../configs/test');
+const config = require('../configs');
 const ServerFixture = require('./fixtures/server.fixture');
 
 /**
@@ -9,7 +9,7 @@ const ServerFixture = require('./fixtures/server.fixture');
 let server;
 before(() => {
   server = new ServerFixture();
-  server.connect(testConfig.serverPort);
+  server.connect(config.port);
 });
 
 after(() => {
@@ -18,5 +18,5 @@ after(() => {
 
 module.exports = {
   fixtures: { server },
-  config: testConfig,
+  config,
 };
