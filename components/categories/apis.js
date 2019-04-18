@@ -39,6 +39,20 @@ router.get('/categories', (req, res, next) => {
 /**
  * Get a product list under the category
  */
+router.get('/categories/all', (req, res, next) => {
+
+  Product.getAll()
+    .then((products) => {
+      res.locals.toRender.title = 'All';
+      res.locals.toRender.products = products;
+      res.render('index', { ...res.locals.toRender });
+    })
+    .catch(err => next(err));
+});
+
+/**
+ * Get a product list under the category
+ */
 router.get('/categories/:categoryUri', (req, res, next) => {
   const options = { uri: req.params.categoryUri };
 
