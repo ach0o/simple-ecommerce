@@ -214,7 +214,9 @@ router.post('/categories/form', (req, res, next) => {
     : Category.insertOne(data);
 
   saveMethod
-    .then(() => {
+    .then(() => Category.getAll({ isEnabled: true }))
+    .then((categories) => {
+      fileUtil.createMenuFile(categories);
       res.redirect('/admins/categories');
     })
     .catch(err => next(err));
@@ -223,7 +225,9 @@ router.post('/categories/form', (req, res, next) => {
 router.post('/categories/delete', (req, res, next) => {
   const { id } = req.body;
   Category.removeOne({ _id: id })
-    .then(() => {
+    .then(() => Category.getAll({ isEnabled: true }))
+    .then((categories) => {
+      fileUtil.createMenuFile(categories);
       res.redirect('/admins/categories');
     })
     .catch(err => next(err));

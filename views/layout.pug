@@ -24,6 +24,9 @@ html(lang="en")
           li: a(href='/carts' alt='carts') Cart: #{cartTotal}
           li.uk-nav-divider
 
+          li.uk-nav-header Menu
+          include includes/menu.pug
+
           block navigation
       .uk-width-expand.uk-padding-remove-top
         block content

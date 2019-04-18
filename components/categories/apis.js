@@ -7,25 +7,6 @@ const Product = require('../products/product');
  */
 const router = Router();
 
-function renderHelperMiddleware(req, res, next) {
-  const options = { isEnabled: true };
-  const popOptions = {
-    children: {
-      where: { isEnabled: true },
-      select: 'name uri',
-    },
-  };
-  Category.getAll(options, popOptions)
-    .select('name uri childCategories isParent')
-    .then((categories) => {
-      res.locals.toRender.categories = categories;
-      next();
-    })
-    .catch(err => next(err));
-}
-
-router.use(renderHelperMiddleware);
-
 router.get('/', (req, res, next) => {
   Product.getAll()
     .sort('-lastWarehoused')

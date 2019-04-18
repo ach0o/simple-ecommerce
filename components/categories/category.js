@@ -28,7 +28,7 @@ class Category {
       { upsert: true, new: true },
     );
   }
-  
+
   static removeOne(options = {}) {
     return CategoryModel.findOneAndDelete(options);
   }

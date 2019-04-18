@@ -13,4 +13,16 @@ function deleteImgFile(filename) {
   });
 }
 
-module.exports = { deleteImgFile };
+function createMenuFile(menuList) {
+  let content = '';
+  for (let i = 0; i < menuList.length; i += 1) {
+    const menu = menuList[i];
+    content += `li\n  a(href='/categories/${menu.uri}') ${menu.name}\n`;
+  }
+  fs.writeFile('./views/includes/menu.pug', content, (err) => {
+    if (err) throw err;
+    console.log('menu.pug updated!');
+  });
+}
+
+module.exports = { deleteImgFile, createMenuFile };

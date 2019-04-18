@@ -27,29 +27,8 @@ mixin displayProducts(products)
     +productItem(product)
 
 //- 
-//- Category Mixins
-//- 
-mixin categoryItem(category)
-  //- Set tags for single category
-  a(href=`/categories/${category.uri}`)=category.name
-  if category.childCategories
-    ul.uk-nav-sub
-      each child in category.childCategories
-        +categoryItem(child)
-
-mixin displayCategories(categories)
-  //- Create a list of categories
-  each category in categories
-    if category.isParent
-      li.uk-parent
-        +categoryItem(category)
-
-//- 
 //- View blocks
 //- 
-block navigation
-  li.uk-nav-header Menu
-  +displayCategories(categories)
 block content
   h1=title
   .product-list.uk-grid
