@@ -1,11 +1,12 @@
 /* eslint-disable no-console */
 const mongoose = require('mongoose');
+const { db } = require('../../configs');
 
 class MongoDB {
-  constructor(dbConfig = {}) {
-    this.host = process.env.DB_HOST || dbConfig.host || 'localhost';
-    this.port = process.env.DB_PORT || dbConfig.port || '27017';
-    this.name = process.env.DB_NAME || dbConfig.name || 'se_testdb';
+  constructor() {
+    this.host = db.mongo.host;
+    this.port = db.mongo.port;
+    this.name = db.mongo.name;
     this.db = null;
   }
 
