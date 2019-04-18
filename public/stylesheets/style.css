@@ -49,11 +49,6 @@ td {
 /* ---------------------------------------------------- */
 /* PRODUCT LIST */
 /* ---------------------------------------------------- */
-.product-list {
-  margin-bottom: 30px;
-  margin-top: 30px;
-}
-
 .description ul {
   list-style: none;
   padding: 0;
@@ -97,7 +92,7 @@ td {
   float: left;
 }
 
-.original-image a img {
+.original-image img {
   max-width: 400px;
   max-height: 400px;
 }
@@ -109,7 +104,6 @@ td {
 
 .description .product-button button {
   margin-top: 20px;
-  width: 50%;
 }
 
 /* ---------------------------------------------------- */

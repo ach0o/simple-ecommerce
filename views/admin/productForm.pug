@@ -1,7 +1,7 @@
 extends index
 
 block content
-  h1 Product Form
+  h2 Product Form
   form(action="/admins/products/form", method="post", enctype="multipart/form-data", onsubmit="return confirm('Are you sure?');")#product-form.uk-form.uk-width-1-3.uk-text-uppercase
     label.uk-form-label(for="uid") uid
       input.uk-input(type="number", name="uid", required, value=`${product? product.uid : ''}`)

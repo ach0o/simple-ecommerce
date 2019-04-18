@@ -11,10 +11,10 @@ mixin productDetail(product)
     table
       tr
         th Price
-        td.price $#{product.price}
+        td.price ₩#{product.price}
       tr
         th DC Price
-        td.dcPrice $#{product.discountPrice}
+        td.dcPrice ₩#{product.discountPrice}
       tr
         th Description
         td.detail=product.description
@@ -47,7 +47,7 @@ mixin productDetail(product)
 //- View blocks (override layout blocks)
 //- 
 block content
-  h1=title
+  h2 Product Detail
   .product-detail.uk-margin.uk-grid
     if product
       +productDetail(product)

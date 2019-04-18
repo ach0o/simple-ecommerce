@@ -5,21 +5,21 @@ extends layout
 //- 
 mixin productItem(product)
   //- Set tags for single product
-  div
-    .thumbnail
-      a(href=`${currentUrlPath}/${product.uid}`)
-        img(src=`/images/${product.images[0] || 'sorry.png'}`, alt=`image of ${product.name}`)
-    .description
-      ul
-        li
-          .uk-text-uppercase.name=product.name
-        li
-          span.price ₩#{product.price}
-          span.dcPrice ₩#{product.discountPrice}
-        li.detail=product.description
-    .icon
-      each tag in product.tags
-        span.uk-badge=tag
+  a.uk-link-reset(href=`${currentUrlPath}/${product.uid}`)
+    .uk-card.uk-card-hover.uk-card-body.uk-text-center.uk-card-small
+      .thumbnail
+          img(src=`/images/${product.images[0] || 'sorry.png'}`, alt=`image of ${product.name}`)
+      .description
+        ul
+          li
+            .uk-text-uppercase.name=product.name
+          li
+            span.price ₩#{product.price}
+            span.dcPrice ₩#{product.discountPrice}
+          li.detail=product.description
+          li
+            each tag in product.tags
+              span.uk-badge=tag
 
 mixin displayProducts(products)
   //- Create a list of products 
@@ -30,6 +30,6 @@ mixin displayProducts(products)
 //- View blocks
 //- 
 block content
-  h1=title
-  .product-list.uk-grid
+  h2=title
+  .product-list.uk-grid.uk-margin-small
     +displayProducts(products)
