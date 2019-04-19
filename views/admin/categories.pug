@@ -10,7 +10,7 @@ mixin displayItem(item)
       else if header === 'products'
         td(style="overflow-y:auto;max-height:100px;white-space:nowrap")
           each product in item[header]
-            a(href=`/categories/all/${product.uid}`)=product.name
+            a(href=`/products/${product.uid}`)=product.name
             br
       else
         td=item[header]

@@ -5,7 +5,7 @@ mixin orderItem(order)
     ul.order-item-list
       each product in order.products
         li
-          a(href=`/categories/all/${product.productUid}`)
+          a(href=`/products/${product.productUid}`)
             span #{product.productInfo.name} (#{product.option})x#{product.quantity}
             br
             span = #{product.quantity * product.productInfo.discountPrice}

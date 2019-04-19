@@ -18,10 +18,10 @@ router.use(renderHelperMiddleware);
  */
 router.get('/', (req, res, next) => {
   Product.getAll()
-    .then(products => res.render(
-      'index',
-      { products, ...res.locals.toRender },
-    ))
+    .sort('uid')
+    .then((products) => {
+      res.render('index', { products, ...res.locals.toRender });
+    })
     .catch(err => next(err));
 });
 
@@ -29,7 +29,6 @@ router.get('/', (req, res, next) => {
  * Get product detail page
  */
 router.get('/:productUid', (req, res, next) => {
-  res.locals.toRender.title = 'Product Detail';
   const options = {
     uid: req.params.productUid,
   };
@@ -38,10 +37,9 @@ router.get('/:productUid', (req, res, next) => {
   if (isNaN(options.uid)) next(new Error('Invalid parameter type'));
 
   Product.getOne(options)
-    .then(product => res.render(
-      'detail',
-      { product, ...res.locals.toRender },
-    ))
+    .then((product) => {
+      res.render('detail', { product, ...res.locals.toRender });
+    })
     .catch(err => next(err));
 });
 

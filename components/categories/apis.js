@@ -14,7 +14,7 @@ router.get('/', (req, res, next) => {
       if (err) next(err);
       res.locals.toRender.title = 'New Arrivals';
       res.locals.toRender.products = products;
-      res.locals.toRender.currentUrlPath += 'categories/all';
+      res.locals.toRender.currentUrlPath += 'products';
       res.render('index', { ...res.locals.toRender });
     });
 });
@@ -28,25 +28,12 @@ router.get('/categories', (req, res, next) => {
     isParent: true,
   };
 
+  res.locals.toRender.title = 'All Categories';
   Category.getAll(options)
     .then(categories => res.render(
       'categories',
       { categories, ...res.locals.toRender },
     ))
-    .catch(err => next(err));
-});
-
-/**
- * Get a product list under the category
- */
-router.get('/categories/all', (req, res, next) => {
-
-  Product.getAll()
-    .then((products) => {
-      res.locals.toRender.title = 'All';
-      res.locals.toRender.products = products;
-      res.render('index', { ...res.locals.toRender });
-    })
     .catch(err => next(err));
 });
 
@@ -64,22 +51,6 @@ router.get('/categories/:categoryUri', (req, res, next) => {
     })
     .catch(err => next(err));
 });
-
-/**
- * Get a product list under any categories
- */
-router.get('/categories/all/:productUid', (req, res, next) => {
-  const options = { uid: req.params.productUid };
-
-  Product.getOne(options)
-    .then((product) => {
-      res.locals.toRender.title = product.name;
-      res.locals.toRender.product = product;
-      res.render('detail', { ...res.locals.toRender });
-    })
-    .catch(err => next(err));
-});
-
 
 /**
  * Get a product detail
