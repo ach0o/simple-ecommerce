@@ -8,7 +8,7 @@ const { config } = require('../context');
 
 describe('Basic server responses', () => {
   it('/: should return 200', (done) => {
-    request.get(`${config.serverUrl}/`, (err, res) => {
+    request.get(`${config.host}:${config.port}/`, (err, res) => {
       should.not.exist(err);
       expect(res.statusCode).to.equal(200);
       done();
@@ -16,7 +16,7 @@ describe('Basic server responses', () => {
   });
 
   it('/pagenotfound: should return 404', (done) => {
-    request.get(`${config.serverUrl}/pagenotfound`, (err, res) => {
+    request.get(`${config.host}:${config.port}/pagenotfound`, (err, res) => {
       should.not.exist(err);
       expect(res.statusCode).to.equal(404);
       done();
