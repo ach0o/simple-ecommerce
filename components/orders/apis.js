@@ -102,13 +102,6 @@ router.post('/checkout', (req, res, next) => {
 });
 
 /**
- * Redirect to product page
- */
-router.get('/:productUid', (req, res, next) => {
-  res.redirect(`/products/${req.params.productUid}`);
-});
-
-/**
  * Post direct order
  */
 router.post('/:productUid', (req, res, next) => {

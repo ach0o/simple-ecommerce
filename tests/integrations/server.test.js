@@ -7,16 +7,16 @@ const should = require('chai').should();
 const { config } = require('../context');
 
 describe('Basic server responses', () => {
-  it('/: should return 200', (done) => {
-    request.get(`${config.host}:${config.port}/`, (err, res) => {
+  it('<200> GET /', (done) => {
+    request.get(`http://${config.host}:${config.port}/`, (err, res) => {
       should.not.exist(err);
       expect(res.statusCode).to.equal(200);
       done();
     });
   });
 
-  it('/pagenotfound: should return 404', (done) => {
-    request.get(`${config.host}:${config.port}/pagenotfound`, (err, res) => {
+  it('<404> GET /pagenotfound', (done) => {
+    request.get(`http://${config.host}:${config.port}/pagenotfound`, (err, res) => {
       should.not.exist(err);
       expect(res.statusCode).to.equal(404);
       done();

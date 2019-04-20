@@ -8,7 +8,7 @@ class ServerFixture {
     this._server = undefined;
   }
 
-  connect(port, host = 'localhost') { // create and launch the server
+  connect(port, host) { // create and launch the server
     if (this._server) console.log('Already connected.');
     else {
       if (!port) throw new Error('port arg is missing');
@@ -29,4 +29,6 @@ class ServerFixture {
   }
 }
 
-module.exports = ServerFixture;
+module.exports = {
+  server: new ServerFixture(),
+};
