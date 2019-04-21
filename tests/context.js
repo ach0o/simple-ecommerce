@@ -1,8 +1,11 @@
 const { before, after } = require('mocha');
 const fs = require('fs');
 const path = require('path');
+const request = require('supertest');
+
 const config = require('../configs');
 const { server } = require('./fixtures/server.fixture');
+const app = require('../server');
 
 const { ProductModel } = require('../components/products/model');
 const { CategoryModel } = require('../components/categories/model');
@@ -30,6 +33,8 @@ after(() => {
 });
 
 module.exports = {
-  fixtures: { server },
+  fixtures: { server: request(app) },
   config,
+  request: request(app),
+  agent: request.agent(app),
 };

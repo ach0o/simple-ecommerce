@@ -43,11 +43,11 @@ router.get('/', (req, res, next) => {
  * - A user must have cart items to checkouts
  */
 router.get('/checkout', (req, res, next) => {
-  if (!req.session.carts) {
+  if (!req.session.carts || req.session.carts.length === 0) {
     res.redirect('/carts');
   } else {
     // get cart items and set.
-    res.render('checkout', { orders: req.session.carts, ...res.locals.toRender });
+    res.render('checkout', { orders: req.session.carts, ...res.locals.toRender })
   }
 });
 
@@ -95,10 +95,12 @@ router.post('/checkout', (req, res, next) => {
             delete req.session.cacheCarts;
             req.session.carts = [];
             res.redirect('/orders');
-          });
+          })
+          .catch(err => console.log(err));
       }
     })
-    .catch(err => next(err));
+    // .catch(err => next(err));
+    .catch(err => console.log(err));
 });
 
 /**
