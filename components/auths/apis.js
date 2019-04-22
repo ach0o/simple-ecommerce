@@ -49,8 +49,14 @@ router.post('/login', (req, res, next) => {
       req.session.carts = req.session.carts || [];
       req.session.carts = req.session.carts.concat(carts);
       const redirectTo = req.session.lastPosition || '/';
+      const method = req.session.lastPositionMethod || 'GET';
       delete req.session.lastPosition;
-      res.redirect(redirectTo);
+      delete req.session.lastPositionMethod;
+      if (method === 'GET') {
+        res.redirect(redirectTo);
+      } else {
+        res.redirect(307, redirectTo);
+      }
     })
     .catch(err => next(err));
 });

@@ -17,6 +17,7 @@ function renderHelperMiddleware(req, res, next) {
 
 function requireAuthorization(req, res, next) {
   if (!req.session.userId) {
+    req.session.lastPositionMethod = req.method;
     req.session.lastPosition = req.originalUrl;
     res.redirect('/auths/login');
   } else {
@@ -67,6 +68,7 @@ router.post('/checkout', (req, res, next) => {
     totalPrice: req.session.cartsTotalPrice,
     payment: {
       method: req.body.payment,
+      paidAmount: req.session.cartsTotalPrice,
       processed: Date.now(),
     },
     shipment: {
@@ -108,7 +110,7 @@ router.post('/checkout', (req, res, next) => {
  */
 router.post('/:productUid', (req, res, next) => {
   const { productUid } = req.params;
-  const quantity = parseInt(req.body.quantity, 10);
+  const quantity = parseInt(req.body.quantity, 10) || 1;
   const { productId, option, price } = req.body;
   Product.getOne({ uid: productUid })
     .then((product) => {

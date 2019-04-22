@@ -19,13 +19,13 @@ html(lang="en")
         ul.uk-nav.uk-nav-default
           li: a(href="/") Home
           li.uk-nav-header User Info.
-          li: a=userId
-          li
-            if userId === 'Guest'
-              a(href="/auths/login") Login/Register
-            else
-              a(href="/auths/logout") Logout
+          li: a(href='/admins')=userId
           li: a(href='/carts' alt='carts') Cart: #{cartTotal}
+          if userId === 'Guest'
+            li: a(href="/auths/login") Login/Register
+          else
+            li: a(href='/orders' alt='orders') Order
+            li: a(href="/auths/logout") Logout
           li.uk-nav-divider
 
           li.uk-nav-header Menu
