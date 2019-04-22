@@ -47,7 +47,7 @@ router.get('/checkout', (req, res, next) => {
     res.redirect('/carts');
   } else {
     // get cart items and set.
-    res.render('checkout', { orders: req.session.carts, ...res.locals.toRender })
+    res.render('checkout', { orders: req.session.carts, ...res.locals.toRender });
   }
 });
 

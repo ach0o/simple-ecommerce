@@ -21,4 +21,4 @@ class MongoDB {
   }
 }
 
-module.exports = MongoDB;
+module.exports = new MongoDB();

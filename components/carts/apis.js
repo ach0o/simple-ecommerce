@@ -22,7 +22,7 @@ router.use(renderHelperMiddleware);
  */
 function fillCartItem(item) {
   return new Promise((resolve, reject) => {
-    Product.getOne({ _id: item.productId })
+    Product.getOne({ uid: item.productUid })
       .select('-uid -_id')
       .then((product) => {
         item.productInfo = product;
@@ -97,7 +97,6 @@ router.post('/:productUid', (req, res, next) => {
   if (req.session.userId) {
     // Update cart to database when user is logged in
     Cart.add({ userId: req.session.userId, carts: cartItems })
-      .then(result => console.log(result))
       .catch(err => next(err));
   }
   res.redirect('back');

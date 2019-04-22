@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index",
     "dev": "NODE_ENV=development nodemon",
-    "test": "NODE_ENV=test mocha ./tests/* --timeout 5000 --exit",
+    "test": "NODE_ENV=test mocha ./tests/**/*.test.js --timeout 5000 --exit",
     "initData": "node scripts/initData.js"
   },
   "author": "achooan",
@@ -20,8 +20,7 @@
     "mongoose": "^5.4.22",
     "morgan": "^1.9.1",
     "multer": "^1.4.1",
-    "pug": "^2.0.3",
-    "supertest": "^4.0.2"
+    "pug": "^2.0.3"
   },
   "devDependencies": {
     "chai": "^4.2.0",
@@ -30,6 +29,6 @@
     "eslint-plugin-import": "^2.16.0",
     "mocha": "^6.1.4",
     "nodemon": "^1.18.10",
-    "request": "^2.88.0"
+    "supertest": "^4.0.2"
   }
 }

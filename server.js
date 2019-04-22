@@ -6,8 +6,7 @@ const { errorHandlers, renderHelpers } = require('./middlewares');
 const { routers, databases } = require('./components');
 
 const app = express();
-const mongo = new databases.MongoDB();
-mongo.connect();
+databases.MongoDB.connect();
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
