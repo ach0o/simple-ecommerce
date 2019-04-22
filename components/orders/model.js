@@ -15,6 +15,7 @@ const OrderSchema = new Schema({
     productInfo: { type: Object },
   }],
   created: { type: Date, default: Date.now },
+  updated: { type: Date, default: Date.now },
   totalPrice: { type: Number },
   payment: {
     method: String,

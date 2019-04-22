@@ -2,6 +2,7 @@ const { Router } = require('express');
 const multer = require('multer');
 const Product = require('../products/product');
 const Category = require('../categories/category');
+const Order = require('../orders/order');
 const fileUtil = require('../../utils/fileUtil');
 
 const upload = multer({ dest: './public/images/' });
@@ -26,8 +27,36 @@ router.use((req, res, next) => {
 /**
  * Get Admin Dashboard
  */
-router.get('/', (req, res) => {
-  res.render('admin/index', { ...res.locals.toRender });
+router.get('/', (req, res, next) => {
+  Order.get({})
+    .then((orders) => {
+      res.render('admin/index', { orders, ...res.locals.toRender });
+    })
+    .catch(err => next(err));
+});
+
+/**
+ *
+ * ADMIN ORDERS APIS
+ *
+ */
+
+/**
+ * Post update order status
+ */
+router.post('/orders/:orderId/:status', (req, res, next) => {
+  const { orderId, status } = req.params;
+  const statusEnum = ['PREP', 'SHIP', 'DELI', 'CMPT', 'CNCL'];
+
+  if (statusEnum.indexOf(status) !== -1) {
+    Order.updateStatus(orderId, status)
+      .then(() => {
+        res.redirect('/admins');
+      })
+      .catch(err => next(err));
+  } else {
+    res.send("Invalid status: 'PREP', 'SHIP', 'DELI', 'CMPT', 'CNCL'").statusCode(400);
+  }
 });
 
 /**

@@ -1,5 +1,37 @@
 extends ../layout
 
+mixin orderItem(item)
+  tr.item
+    td=index
+    each header in headers
+      if header === 'products'
+        td.ul.order-item-list
+          each product in item.products
+            li
+              a(href=`/products/${product.productUid}`)
+                span #{product.productInfo.name} (#{product.option})x#{product.quantity}
+                br
+                span = #{product.quantity * product.productInfo.discountPrice}
+      else if header === 'payment' || header === 'shipment'
+        td
+          each key in Object.keys(item[header])
+            span #{key}: #{item[header][key]}
+            br
+      else
+        td=item[header]
+    td
+      form(method="post")
+        each status in Object.keys(statusDict)
+          if (item['status'] == status)
+            button.uk-button.uk-button-default.uk-width-1-2(formaction=`/admins/orders/${item._id}/`+status disabled)=statusDict[status]
+          else
+            button.uk-button.uk-button-default.uk-width-1-2(formaction=`/admins/orders/${item._id}/`+status)=statusDict[status]
+
+mixin displayOrders(orders)
+  each order in orders
+    +orderItem(order)
+    - index += 1
+
 block navigation
   li.uk-nav-header Admin Menu
   li
@@ -9,5 +41,35 @@ block navigation
 block content
   h2 Admin Dashboard
   div
-    h3 Placed Orders
-    span Will specify actions here
+    //- variable for product counter
+    - let index = 1
+
+    //- table headers(= product object keys)
+    - 
+      let headers = [
+      'products', 'totalPrice', 'userId', 'payment', 'shipment', 'status', 'created'
+      ]
+
+    - 
+      let statusDict = {
+        'PREP': 'PREPARING',
+        'SHIP': 'SHIPPING',
+        'DELI': 'ON DELIVERY',
+        'CMPT': 'COMPLETED',
+        'CNCL': 'CANCEL',
+      }
+    h2 Placed Orders
+
+    if !orders || orders.length === 0
+      h3 No orders
+    else
+      .admin-list
+        table.uk-table
+          thead: tr
+            th #
+            for header in headers
+              th=header
+            th actions
+          tbody 
+            +displayOrders(orders)
+          
