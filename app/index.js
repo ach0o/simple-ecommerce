@@ -1,8 +1,8 @@
 /* eslint-disable no-use-before-define */
-const debug = require('debug')('simple_ecommerce:server');
+const debug = require('debug')('simple_ecommerce:app');
 const http = require('http');
 const config = require('./configs');
-const app = require('./server');
+const app = require('./app');
 
 app.set('port', config.port);
 

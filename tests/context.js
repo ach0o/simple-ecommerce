@@ -3,11 +3,11 @@ const fs = require('fs');
 const path = require('path');
 const request = require('supertest');
 
-const config = require('../configs');
-const app = require('../server');
-const { ProductModel } = require('../components/products/model');
-const { CategoryModel } = require('../components/categories/model');
-const { databases } = require('../components');
+const config = require('../app/configs');
+const app = require('../app/app');
+const { ProductModel } = require('../app/components/products/model');
+const { CategoryModel } = require('../app/components/categories/model');
+const { databases } = require('../app/components');
 
 
 /**

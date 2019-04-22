@@ -2,7 +2,7 @@ const {
   describe, it, before, after,
 } = require('mocha');
 const { agent } = require('../context');
-const Category = require('../../components/categories/category');
+const Category = require('../../app/components/categories/category');
 
 
 before((done) => {

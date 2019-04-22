@@ -1,6 +1,6 @@
 const { describe, it } = require('mocha');
 const should = require('chai').should();
-const { databases } = require('../../components');
+const { databases } = require('../../app/components');
 
 
 describe('Database connection', () => {

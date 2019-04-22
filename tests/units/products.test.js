@@ -3,7 +3,7 @@ const {
 } = require('mocha');
 const { expect } = require('chai');
 const should = require('chai').should();
-const Product = require('../../components/products/product');
+const Product = require('../../app/components/products/product');
 
 describe('Product db access', () => {
   it('getOne(): should return any one product', () => {

@@ -2,9 +2,9 @@
   "name": "simple_ecommerce",
   "version": "1.0.0",
   "description": "A simple ecommerce site",
-  "main": "index.js",
+  "main": "app",
   "scripts": {
-    "start": "node index",
+    "start": "node app",
     "dev": "NODE_ENV=development nodemon",
     "test": "NODE_ENV=test mocha ./tests/**/*.test.js --timeout 5000 --exit",
     "initData": "node scripts/initData.js"

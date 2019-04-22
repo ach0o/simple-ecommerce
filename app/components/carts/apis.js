@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const Cart = require('./cart');
-const Product = require('./../products/product');
+const Product = require('../products/product');
 
 /**
  * Base Path: /carts

@@ -3,7 +3,7 @@ const {
 } = require('mocha');
 const { expect } = require('chai');
 const should = require('chai').should();
-const Category = require('../../components/categories/category');
+const Category = require('../../app/components/categories/category');
 
 describe('Category db access', () => {
   it('getOne(): should return any one category', () => {

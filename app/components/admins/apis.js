@@ -5,7 +5,7 @@ const Category = require('../categories/category');
 const Order = require('../orders/order');
 const fileUtil = require('../../utils/fileUtil');
 
-const upload = multer({ dest: './public/images/' });
+const upload = multer({ dest: './app/public/images/' });
 
 /**
  * Base Path: /admins
