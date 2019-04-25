@@ -6,7 +6,7 @@ mixin displayItem(item)
     each header in headers
       if header === 'image'
         td.thumbnail
-          img(src=`/images/${item.images[0]}`, alt="")
+          img(src=`/images/${item.images[0]}`, onerror="this.src='/images/sorry.png'", alt="")
       else if header === 'optionQty'
         td=Object.keys(item[header])
       else

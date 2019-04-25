@@ -11,7 +11,7 @@ mixin productItem(product)
         .uk-card-badge.uk-label.uk-label-danger sold out
 
       .thumbnail
-          img(src=`/images/${product.images[0] || 'sorry.png'}`, alt=`image of ${product.name}`)
+          img(src=`/images/${product.images[0]}`, onerror="this.src='/images/sorry.png'", alt=`image of ${product.name}`)
       .description
         ul
           li

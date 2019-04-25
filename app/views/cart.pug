@@ -4,7 +4,7 @@ mixin cartItem(item)
   tr.cart-item
     td.thumbnail
       a(href=`/products/${item.productUid}`)
-        img(src=`/images/${item.productInfo.images[0]}`, alt="", srcset="")
+        img(src=`/images/${item.productInfo.images[0]}`, onerror="this.src='/images/sorry.png'", alt="", srcset="")
     td=item.productInfo.name
     td=item.option
     td=item.productInfo.discountPrice

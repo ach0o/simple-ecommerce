@@ -22,7 +22,7 @@ block content
         if product
           //- show current image
           .thumbnail
-            img(src=`/images/${product.images[0]}`, alt="")
+            img(src=`/images/${product.images[0]}`, onerror="this.src='/images/sorry.png'", alt="")
         input(type="file", name="images", accept="image/*")
     label.uk-form-label(for="lastWarehoused") last warehoused date
       input.uk-input(type="date", name="lastWarehoused", required, value=`${product? product.lastWarehoused : ''}`)
