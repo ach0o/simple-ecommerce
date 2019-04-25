@@ -14,41 +14,55 @@ jobs:
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
       - run:
-          name: install dependencies
+          name: Install dependencies
           command: npm install
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - ./node_modules
       - run:
-          name: test
+          name: Run tests
           command: npm test
       - setup_remote_docker:
           docker_layer_caching: true
       - run:
-          name: Install Docker Compose
+          name: Build Docker Image
           command: |
-            curl -L https://github.com/docker/compose/releases/download/1.19.0/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
-            chmod +x ~/docker-compose
-            sudo mv ~/docker-compose /usr/local/bin/docker-compose
+            docker build -t achooan/$APP_NAME .
       - run:
-          name: Run Docker Compose
+          name: Save Docker Image
           command: |
-            docker-compose build
-      - run:
-          name: Push Docker Image
-          command: |
-            docker login -u$DOCKERHUB_LOGIN -p$DOCKERHUB_PW
-            docker push achooan/$APP_NAME:$CIRCLE_BRANCH-$CIRCLE_SHA1
+            mkdir -p /tmp/docker-image
+            docker save -o /tmp/docker-image/app.tar achooan/$APP_NAME
+      - persist_to_workspace:
+          root: /tmp/docker-image
+          paths:
+            - app.tar
+
   deploy:
     <<: *docker
     steps:
-      - checkout
+      - attach_workspace:
+          at: /tmp/docker-image
+      - setup_remote_docker
       - run:
-          name: Deploy
-          command: echo "TODO -"
-      
-
+          name: Load Docker Image
+          command: |
+            docker load -i /tmp/docker-image/app.tar
+      - run:
+          name: Tag Docker Image
+          command: |
+            docker tag achooan/$APP_NAME achooan/$APP_NAME-$CIRCLE_SHA1
+            docker tag achooan/$APP_NAME achooan/$APP_NAME:latest
+      - run:
+          name: Login to DockerHub
+          command: |
+            docker login -u$DOCKERHUB_LOGIN -p$DOCKERHUB_PW
+      - run:
+          name: Push Docker Image
+          command: |
+            docker push achooan/$APP_NAME-$CIRCLE_SHA1
+            docker push achooan/$APP_NAME:latest
 
 workflows:
   version: 2
@@ -58,6 +72,7 @@ workflows:
       - deploy:
           requires:
             - build
-          # filters:
-          #   branches:
-          #     only: master
+          filters:
+            branches:
+              only: master
+     
