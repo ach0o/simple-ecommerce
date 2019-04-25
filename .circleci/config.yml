@@ -23,11 +23,6 @@ jobs:
       - run:
           name: test
           command: npm test
-  
-  deploy:
-    <<: *docker
-    steps:
-      - checkout
       - setup_remote_docker:
           docker_layer_caching: true
       - run:
@@ -43,7 +38,16 @@ jobs:
       - run:
           name: Push Docker Image
           command: |
-            echo "TODO"
+            docker login -u$DOCKERHUB_LOGIN -p$DOCKERHUB_PW
+            docker push achooan/$APP_NAME:$CIRCLE_BRANCH-$CIRCLE_SHA1
+  deploy:
+    <<: *docker
+    steps:
+      - checkout
+      - run:
+          name: Deploy
+          command: echo "TODO -"
+      
 
 
 workflows:
@@ -54,6 +58,6 @@ workflows:
       - deploy:
           requires:
             - build
-          filters:
-            branches:
-              only: master
+          # filters:
+          #   branches:
+          #     only: master
