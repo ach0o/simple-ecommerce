@@ -7,9 +7,7 @@ dotenv.config();
 const env = process.env.NODE_ENV || 'development';
 const db = {
   mongo: {
-    name: process.env.MONGO_NAME || `mongo-${env}`,
-    host: process.env.MONGO_HOST || '0.0.0.0',
-    port: process.env.MONGO_PORT || 27017,
+    uris: process.env.MONGO_URIS || `mongodb://0.0.0.0:27017/mongo-${env}`
   },
 };
 
