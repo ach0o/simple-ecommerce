@@ -26,3 +26,5 @@ $ npm run dev
 
 ## Try it out
 Try the app at http://localhost:9090
+
+Or, checkout the [Demo](http://ec.achooan.com/)
