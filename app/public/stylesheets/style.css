@@ -42,6 +42,12 @@ td {
   border-bottom: 1px solid #ddd;
 }
 
+footer {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  margin-top: -40px;
+}
 /* ---------------------------------------------------- */
 /* NAVIGATION */
 /* ---------------------------------------------------- */
