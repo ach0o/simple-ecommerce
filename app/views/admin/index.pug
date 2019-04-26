@@ -20,7 +20,7 @@ mixin orderItem(item)
       else
         td=item[header]
     td
-      form(method="post")
+      form(method="post").admin-order-form
         each status in Object.keys(statusDict)
           if (item['status'] == status)
             button.uk-button.uk-button-default.uk-width-1-2(formaction=`/admins/orders/${item._id}/`+status disabled)=statusDict[status]

@@ -15,23 +15,24 @@ html(lang="en")
     //- Center Content
     .uk-grid.uk-padding
       //- Menu and Navigation
-      .uk-width-auto
-        ul.uk-nav.uk-nav-default
-          li: a(href="/") Home
-          li.uk-nav-header User Info.
-          li: a(href='/admins')=userId
-          li: a(href='/carts' alt='carts') Cart: #{cartTotal}
-          if userId === 'Guest'
-            li: a(href="/auths/login") Login/Register
-          else
-            li: a(href='/orders' alt='orders') Order
-            li: a(href="/auths/logout") Logout
-          li.uk-nav-divider
+      div(class="uk-width-1-1 uk-width-auto@s")
+        .uk-background-muted.uk-padding.uk-margin-bottom
+          ul.uk-nav.uk-nav-default
+            li: a(href="/") Home
+            li.uk-nav-header User Info.
+            li: a(href='/admins')=userId
+            li: a(href='/carts' alt='carts') Cart: #{cartTotal}
+            if userId === 'Guest'
+              li: a(href="/auths/login") Login/Register
+            else
+              li: a(href='/orders' alt='orders') Order
+              li: a(href="/auths/logout") Logout
+            li.uk-nav-divider
 
-          li.uk-nav-header Menu
-          include includes/menu.pug
+            li.uk-nav-header Menu
+            include includes/menu.pug
 
-          block navigation
+            block navigation
       
       //- Content
       .uk-width-expand.uk-padding-remove-top.uk-margin-medium-bottom

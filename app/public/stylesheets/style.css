@@ -171,3 +171,8 @@ td {
 .admin-list {
   overflow-x: auto;
 }
+
+.admin-order-form button {
+  white-space: nowrap;
+  width: 100%;
+}
