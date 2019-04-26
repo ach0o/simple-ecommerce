@@ -1,6 +1,9 @@
 # Simple-Ecommerce
 A simple, simulated e-commerce application built with ExpressJS and MongoDB
 
+## Demo
+
+
 ## Getting Started
 ### Prerequisite
 * Install NodeJS (checkout [here](https://nodejs.org/en/download/))
@@ -26,3 +29,5 @@ $ npm run dev
 
 ## Try it out
 Try the app at http://localhost:9090
+
+Or, checkout the [Demo](http://ec.achooan.com/)
