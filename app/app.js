@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(
   session({
     name: 'idssn',
-    secret: 'some secret words#$%',
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
   }),
@@ -34,5 +34,8 @@ app.use('/', routers.categories);
 // handling errors
 app.use(errorHandlers.NotFoundHandler);
 app.use(errorHandlers.ErrorHandler);
+
+// security
+app.disable('x-powered-by');
 
 module.exports = app;
