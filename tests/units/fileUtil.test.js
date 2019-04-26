@@ -23,7 +23,7 @@ describe('fileUtil methods', () => {
       + "li\n  a(href='/categories/shoes') Shoes\n"
       + "li\n  a(href='/categories/jackets') Jackets\n",
     );
-
+    writeStub.restore();
     done();
   });
 });

@@ -11,6 +11,9 @@ databases.MongoDB.connect();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+// To immediately apply changes made by admin user, like menu
+app.disable('view cache');
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

@@ -3,6 +3,8 @@ const {
 } = require('mocha');
 const { agent } = require('../context');
 const Category = require('../../app/components/categories/category');
+const fs = require('fs');
+const sinon = require('sinon');
 
 
 before((done) => {
@@ -66,6 +68,14 @@ describe('Admin Products API responses', () => {
 });
 
 describe('Admin Category API responses', () => {
+  let stub;
+  before(() => {
+    stub = sinon.stub(fs, 'writeFile');
+  });
+  after(() => {
+    stub.restore();
+  });
+
   it('<200> GET /admins/categories', (done) => {
     agent.get('/admins/categories')
       .expect(200, done);
