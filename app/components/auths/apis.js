@@ -73,7 +73,6 @@ router.post('/admins', (req, res) => {
 router.get('/logout', (req, res) => {
   res.locals.toRender.title = 'Logout';
   req.session.destroy();
-  res.end();
 });
 
 module.exports = router;

@@ -1,27 +1,27 @@
 const {
   describe, it, before, after,
 } = require('mocha');
-const { agent } = require('../context');
-const Category = require('../../app/components/categories/category');
 const fs = require('fs');
 const sinon = require('sinon');
+const { agent } = require('../context');
+const Category = require('../../app/components/categories/category');
 
 
-before((done) => {
-  agent.post('/auths/admins')
-    .expect(302)
-    .expect('Location', '/admins')
-    .end(done);
-});
 
-after((done) => {
-  agent.post('/auths/logout')
-    .expect(302)
-    .expect('Location', '/')
-    .end(done);
-});
 
 describe('Admin API responses', () => {
+  before((done) => {
+    agent.post('/auths/admins')
+      .expect(302)
+      .expect('Location', '/admins')
+      .end(done);
+  });
+  after((done) => {
+    agent.get('/auths/logout')
+      .expect(302)
+      .expect('Location', '/')
+      .end(done);
+  });
   it('<200> GET /admins', (done) => {
     agent.get('/admins')
       .expect(200, done);
@@ -29,6 +29,18 @@ describe('Admin API responses', () => {
 });
 
 describe('Admin Products API responses', () => {
+  before((done) => {
+    agent.post('/auths/admins')
+      .expect(302)
+      .expect('Location', '/admins')
+      .end(done);
+  });
+  after((done) => {
+    agent.get('/auths/logout')
+      .expect(302)
+      .expect('Location', '/')
+      .end(done);
+  });
   it('<200> GET /admins/products', (done) => {
     agent.get('/admins/products')
       .expect(200, done);
@@ -69,11 +81,19 @@ describe('Admin Products API responses', () => {
 
 describe('Admin Category API responses', () => {
   let stub;
-  before(() => {
+  before((done) => {
     stub = sinon.stub(fs, 'writeFile');
+    agent.post('/auths/admins')
+      .expect(302)
+      .expect('Location', '/admins')
+      .end(done);
   });
-  after(() => {
+  after((done) => {
     stub.restore();
+    agent.get('/auths/logout')
+      .expect(302)
+      .expect('Location', '/')
+      .end(done);
   });
 
   it('<200> GET /admins/categories', (done) => {
