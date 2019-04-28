@@ -2,7 +2,7 @@ extends index
 
 block content
   h2 Category Form
-  form(action="/admins/categories/form", method="post", onsubmit="return confirm('Are you sure?');")#category-form.uk-form.uk-width-1-3.uk-text-uppercase
+  form(action="/admins/categories/form", method="post", onsubmit="return confirm('Are you sure?');", class="uk-width-1-4@m uk-width-1-6@xl")#category-form.uk-form.uk-text-uppercase
     input(type="text", name="id", value=`${category? category._id : ''}`, hidden)
     label.uk-form-label(for="name") name
       input.uk-input(type="text", name="name", required, value=`${category? category.name : ''}`)
