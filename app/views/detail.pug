@@ -5,7 +5,7 @@ extends index
 //- 
 mixin productDetail(product)
   .original-image
-    img(src=`/images/${product.images[0]}`, onerror="this.src='/images/sorry.png'", alt=`image of ${product.name}`)
+    img(src=`/images/${product.images[0]}`, onerror="this.src='/images/sorry.png'", alt=`image of ${product.name}`, class="uk-width-1-1 uk-width-auto@s")
   .description
     h3.name=product.name
       if product.isSoldOut
