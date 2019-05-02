@@ -1,6 +1,8 @@
 # Simple-Ecommerce
 A simple, simulated e-commerce application built with ExpressJS and MongoDB
 
+![simpleecommerce screenshot](https://github.com/achooan/simple-ecommerce/blob/master/images/screenshot.png)
+
 ## Getting Started
 ### Prerequisite
 * Install NodeJS (checkout [here](https://nodejs.org/en/download/))
