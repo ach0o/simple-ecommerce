@@ -7,7 +7,7 @@ dotenv.config();
 const env = process.env.NODE_ENV || 'development';
 const db = {
   mongo: {
-    uris: process.env.MONGO_URIS || `mongodb://0.0.0.0:27017/mongo-${env}`
+    uris: process.env.MONGO_URIS || `mongodb://0.0.0.0:27017/mongo-${env}`,
   },
 };
 
