@@ -1,4 +1,7 @@
 # Simple-Ecommerce
+
+[![CircleCI](https://circleci.com/gh/achooan/simple-ecommerce/tree/master.svg?style=shield)](https://circleci.com/gh/achooan/simple-ecommerce/tree/master)
+
 A simple, simulated e-commerce application built with ExpressJS and MongoDB
 
 ![simpleecommerce screenshot](https://github.com/achooan/simple-ecommerce/blob/master/images/screenshot.png)
