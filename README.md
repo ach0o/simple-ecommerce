@@ -20,6 +20,18 @@ $ npm install --only=production
 $ npm install --only=development
 ```
 
+### Set configuration
+```
+# .env file -- for development
+
+APP_NAME=  # default: simple-ecommerce
+APP_HOST=  # default: 0.0.0.0
+APP_PORT=  # default: 9090
+
+# MongoDB must be running somewhere
+MONGO_URIS= # default: mongodb://0.0.0.0:27017/mongo-development
+```
+
 ### Start your app
 ```bash
 # Launch the app
