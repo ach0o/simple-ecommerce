@@ -1,5 +1,10 @@
 # Simple-Ecommerce
+
+[![CircleCI](https://circleci.com/gh/achooan/simple-ecommerce/tree/master.svg?style=shield)](https://circleci.com/gh/achooan/simple-ecommerce/tree/master)
+
 A simple, simulated e-commerce application built with ExpressJS and MongoDB
+
+![simpleecommerce screenshot](https://github.com/achooan/simple-ecommerce/blob/master/images/screenshot.png)
 
 ## Getting Started
 ### Prerequisite
@@ -13,6 +18,18 @@ $ npm install --only=production
 
 # And run this to install devDependencies
 $ npm install --only=development
+```
+
+### Set configuration
+```
+# .env file -- for development
+
+APP_NAME=  # default: simple-ecommerce
+APP_HOST=  # default: 0.0.0.0
+APP_PORT=  # default: 9090
+
+# MongoDB must be running somewhere
+MONGO_URIS= # default: mongodb://0.0.0.0:27017/mongo-development
 ```
 
 ### Start your app
