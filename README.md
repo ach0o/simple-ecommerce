@@ -28,3 +28,7 @@ $ npm run dev
 Try the app at http://localhost:9090
 
 Or, checkout the [Demo](http://ec.achooan.com/)
+
+
+## License
+See [LICENSE](https://github.com/achooan/simple-ecommerce/blob/master/LICENSE)
