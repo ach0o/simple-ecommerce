@@ -10,7 +10,7 @@
     "initData": "node scripts/initData.js"
   },
   "author": "achooan",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "debug": "^4.1.1",
     "dotenv": "^7.0.0",
