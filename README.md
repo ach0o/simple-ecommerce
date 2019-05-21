@@ -15,9 +15,6 @@ A simple, simulated e-commerce application built with ExpressJS and MongoDB
 ```bash
 # Install required dependencies for production
 $ npm install --only=production
-
-# And run this to install devDependencies
-$ npm install --only=development
 ```
 
 ### Set configuration
@@ -39,6 +36,17 @@ $ npm start
 
 # OR run in debug mode
 $ npm run dev
+```
+
+## Development
+### Install devDependencies
+```bash
+$ npm install --only=development
+```
+
+### Testing
+```bash
+$ npm run test
 ```
 
 ## Try it out
