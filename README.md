@@ -27,6 +27,9 @@ APP_PORT=  # default: 9090
 
 # MongoDB must be running somewhere
 MONGO_URIS= # default: mongodb://0.0.0.0:27017/mongo-development
+
+# Secure session with secret key
+SESSION_SECRET=
 ```
 
 ### Start your app
