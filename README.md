@@ -8,7 +8,7 @@ A simple, simulated e-commerce application built with ExpressJS and MongoDB
 
 ## Getting Started
 ### Prerequisite
-* Install NodeJS (checkout [here](https://nodejs.org/en/download/))
+* Install NodeJS(>= 10.16.0) (checkout [here](https://nodejs.org/en/download/))
 * Install MongoDB (checkout [here](https://docs.mongodb.com/manual/administration/install-community/))
 
 ### Install required dependencies
