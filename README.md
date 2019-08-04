@@ -41,7 +41,7 @@ $ npm start
 $ npm run dev
 ```
 
-## Development
+## Development Guide
 ### Install devDependencies
 ```bash
 $ npm install --only=development
