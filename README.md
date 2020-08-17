@@ -55,7 +55,7 @@ $ npm run test
 ## Try it out
 Try the app at http://localhost:9090
 
-Or, checkout the [Demo](http://ec.achooan.com/)
+Or, checkout the [Demo](http://ec.ach0o.me/)
 
 
 ## License
